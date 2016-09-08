@@ -1,8 +1,8 @@
 //
 //  ViewController.swift
-//  Bill Tracker
+//  bill-tracker
 //
-//  Created by Carr, Benjamin on 07/09/2016.
+//  Created by Carr, Benjamin on 08/09/2016.
 //  Copyright © 2016 Ben Carr. All rights reserved.
 //
 

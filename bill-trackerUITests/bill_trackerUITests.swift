@@ -1,14 +1,14 @@
 //
-//  Bill_TrackerUITests.swift
-//  Bill TrackerUITests
+//  bill_trackerUITests.swift
+//  bill-trackerUITests
 //
-//  Created by Carr, Benjamin on 07/09/2016.
+//  Created by Carr, Benjamin on 08/09/2016.
 //  Copyright © 2016 Ben Carr. All rights reserved.
 //
 
 import XCTest
 
-class Bill_TrackerUITests: XCTestCase {
+class bill_trackerUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()
