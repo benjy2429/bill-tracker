@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9EC0195F1D819D0D00415333 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC0195E1D819D0D00415333 /* AppDelegate.swift */; };
-		9EC019611D819D0D00415333 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019601D819D0D00415333 /* ViewController.swift */; };
+		9EC019611D819D0D00415333 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019601D819D0D00415333 /* OverviewViewController.swift */; };
 		9EC019641D819D0D00415333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EC019621D819D0D00415333 /* Main.storyboard */; };
 		9EC019671D819D0D00415333 /* bill_tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019651D819D0D00415333 /* bill_tracker.xcdatamodeld */; };
 		9EC019691D819D0D00415333 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EC019681D819D0D00415333 /* Assets.xcassets */; };
@@ -37,7 +37,7 @@
 /* Begin PBXFileReference section */
 		9EC0195B1D819D0D00415333 /* bill-tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bill-tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EC0195E1D819D0D00415333 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9EC019601D819D0D00415333 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9EC019601D819D0D00415333 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		9EC019631D819D0D00415333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9EC019661D819D0D00415333 /* bill_tracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = bill_tracker.xcdatamodel; sourceTree = "<group>"; };
 		9EC019681D819D0D00415333 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				9EC0195E1D819D0D00415333 /* AppDelegate.swift */,
-				9EC019601D819D0D00415333 /* ViewController.swift */,
+				9EC019601D819D0D00415333 /* OverviewViewController.swift */,
 				9EC019621D819D0D00415333 /* Main.storyboard */,
 				9EC019681D819D0D00415333 /* Assets.xcassets */,
 				9EC0196A1D819D0D00415333 /* LaunchScreen.storyboard */,
@@ -259,7 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EC019611D819D0D00415333 /* ViewController.swift in Sources */,
+				9EC019611D819D0D00415333 /* OverviewViewController.swift in Sources */,
 				9EC019671D819D0D00415333 /* bill_tracker.xcdatamodeld in Sources */,
 				9EC0195F1D819D0D00415333 /* AppDelegate.swift in Sources */,
 			);
@@ -486,6 +486,7 @@
 				9EC019881D819D0D00415333 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9EC019891D819D0D00415333 /* Build configuration list for PBXNativeTarget "bill-trackerTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +495,7 @@
 				9EC0198B1D819D0D00415333 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9EC0198C1D819D0D00415333 /* Build configuration list for PBXNativeTarget "bill-trackerUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +504,7 @@
 				9EC0198E1D819D0D00415333 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
