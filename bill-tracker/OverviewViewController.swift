@@ -13,19 +13,17 @@ class OverviewViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
 
-    var bills = [NSManagedObject]()
+    let managedContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    var bills = [Bill]()
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext
 
         let fetchRequest = NSFetchRequest(entityName: "Bill")
 
         do {
             let results = try managedContext.executeFetchRequest(fetchRequest)
-            bills = results as! [NSManagedObject]
+            bills = results as! [Bill]
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
@@ -39,24 +37,11 @@ class OverviewViewController: UIViewController, UITableViewDataSource {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func saveBill(name: String) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext
-
-        let entity = NSEntityDescription.entityForName("Bill", inManagedObjectContext: managedContext)
-        let bill = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-
-        bill.setValue(name, forKey: "name")
-
-        do {
-            try managedContext.save()
-            bills.append(bill)
-        } catch let error as NSError {
-            print("Could not save \(error), \(error.userInfo)")
-        }
+        let bill = Bill.create(managedContext, name: name)
+        bills.append(bill)
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
