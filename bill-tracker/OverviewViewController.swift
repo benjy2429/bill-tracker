@@ -1,25 +1,27 @@
 import UIKit
 import CoreData
 
-class OverviewViewController: UIViewController, BillDetailViewControllerDelegate, UITableViewDataSource {
+class OverviewViewController: UIViewController, BillDetailViewControllerDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
 
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var bills = [Bill]()
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
+    lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "Bill")
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
 
-        do {
-            let results = try managedObjectContext.executeFetchRequest(fetchRequest)
-            bills = results as! [Bill]
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
-    }
+        let _fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: self.managedObjectContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+
+        _fetchedResultsController.delegate = self
+
+        return _fetchedResultsController
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,48 +29,86 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
     }
 
-    func saveBill(name: String) {
-        let bill = Bill.create(managedObjectContext, name: name)
-        bills.append(bill)
+    // MARK: - UITableViewDataSource
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if let sections = fetchedResultsController.sections {
+            return sections.count
+        }
+
+        return 0
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bills.count
+        if let sections = fetchedResultsController.sections {
+            let currentSection = sections[section]
+            return currentSection.numberOfObjects
+        }
+
+        return 0
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
-        let bill = bills[indexPath.row]
+        let bill = fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
 
         cell!.textLabel!.text = bill.valueForKey("name") as? String
         return cell!
     }
 
-    @IBAction func addBill(sender: AnyObject) {
-        let alert = UIAlertController(title: "Bill name", message: "Create a new bill", preferredStyle: .Alert)
+    // MARK: - NSFetchedResultsControllerDelegate
 
-        let saveAction = UIAlertAction(title: "Save", style: .Default, handler: { (action:UIAlertAction) -> Void in
-            let textField = alert.textFields!.first
-            self.saveBill(textField!.text!)
-            self.tableView.reloadData()
-        })
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action: UIAlertAction) -> Void in
-        }
-
-        alert.addTextFieldWithConfigurationHandler {
-            (textField: UITextField) -> Void in
-        }
-
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-
-        presentViewController(alert, animated: true, completion: nil)
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        tableView.beginUpdates()
     }
+
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .Insert:
+            if let indexPath = newIndexPath {
+                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            break
+//        case .Delete:
+//            if let indexPath = indexPath {
+//                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//            }
+//            break
+//        case .Update:
+//            if let indexPath = indexPath {
+//                let cell = tableView.cellForRowAtIndexPath(indexPath) as! ToDoCell
+//                configureCell(cell, atIndexPath: indexPath)
+//            }
+//            break
+//        case .Move:
+//            if let indexPath = indexPath {
+//                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//            }
+//
+//            if let newIndexPath = newIndexPath {
+//                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+//            }
+//            break
+        default:
+            break
+        }
+    }
+
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        tableView.endUpdates()
+    }
+
+    // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "addBill") {
@@ -80,7 +120,19 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
         }
     }
 
-    func BillDetailViewControllerDidCancel(controller: BillDetailViewController) {
+    // MARK: - BillDetailViewControllerDelegate
+
+    func didCancel(controller: BillDetailViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    func didAddBill(controller: BillDetailViewController, bill: Bill) {
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalError("Error saving bill: \(error)")
+        }
+
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
