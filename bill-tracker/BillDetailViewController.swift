@@ -12,8 +12,8 @@ class BillDetailViewController: UITableViewController {
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var dateField: UITextField!
 
-    var delegate: BillDetailViewControllerDelegate?
-    var managedObjectContext: NSManagedObjectContext?
+    var delegate: BillDetailViewControllerDelegate!
+    var context: NSManagedObjectContext!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class BillDetailViewController: UITableViewController {
 
     @IBAction func savePressed(sender: AnyObject) {
         let name = nameField.text!
-        let bill = Bill.create(managedObjectContext!, name: name)
+        let bill = Bill.create(context, name: name)
 
         delegate?.didAddBill(self, bill: bill)
     }

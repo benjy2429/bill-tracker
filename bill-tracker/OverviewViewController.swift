@@ -5,7 +5,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
     @IBOutlet weak var tableView: UITableView!
 
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    var context: NSManagedObjectContext!
 
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "Bill")
@@ -14,7 +14,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
         let _fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
-            managedObjectContext: self.managedObjectContext,
+            managedObjectContext: self.context,
             sectionNameKeyPath: nil,
             cacheName: nil)
 
@@ -116,7 +116,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
             let controller = navController.topViewController as! BillDetailViewController
 
             controller.delegate = self
-            controller.managedObjectContext = managedObjectContext
+            controller.context = context
         }
     }
 
@@ -128,7 +128,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
     func didAddBill(controller: BillDetailViewController, bill: Bill) {
         do {
-            try managedObjectContext.save()
+            try context.save()
         } catch {
             fatalError("Error saving bill: \(error)")
         }
