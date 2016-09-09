@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E5629AE1D833411008CB706 /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5629AD1D833411008CB706 /* BillDetailViewController.swift */; };
 		9E8308FF1D81DF96004C6EC5 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8308FD1D81DF96004C6EC5 /* Bill.swift */; };
+		9E8309071D81F5EC004C6EC5 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8309041D81F5EC004C6EC5 /* Category.swift */; };
 		9EC0195F1D819D0D00415333 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC0195E1D819D0D00415333 /* AppDelegate.swift */; };
 		9EC019611D819D0D00415333 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019601D819D0D00415333 /* OverviewViewController.swift */; };
 		9EC019641D819D0D00415333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EC019621D819D0D00415333 /* Main.storyboard */; };
@@ -36,7 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E5629AD1D833411008CB706 /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
 		9E8308FD1D81DF96004C6EC5 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
+		9E8309041D81F5EC004C6EC5 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		9EC0195B1D819D0D00415333 /* bill-tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bill-tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EC0195E1D819D0D00415333 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EC019601D819D0D00415333 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				9E8308FD1D81DF96004C6EC5 /* Bill.swift */,
+				9E8309041D81F5EC004C6EC5 /* Category.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -89,6 +94,7 @@
 		9E8309011D81E02B004C6EC5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				9E5629AD1D833411008CB706 /* BillDetailViewController.swift */,
 				9EC019601D819D0D00415333 /* OverviewViewController.swift */,
 			);
 			name = ViewControllers;
@@ -282,6 +288,8 @@
 				9E8308FF1D81DF96004C6EC5 /* Bill.swift in Sources */,
 				9EC019671D819D0D00415333 /* bill_tracker.xcdatamodeld in Sources */,
 				9EC0195F1D819D0D00415333 /* AppDelegate.swift in Sources */,
+				9E8309071D81F5EC004C6EC5 /* Category.swift in Sources */,
+				9E5629AE1D833411008CB706 /* BillDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,9 @@ import CoreData
 class Bill: NSManagedObject {
 
     @NSManaged var name: String?
+    @NSManaged var amount: NSDecimalNumber?
+    @NSManaged var date: NSDate?
+    @NSManaged var category: Category?
 
     class func create(context: NSManagedObjectContext, name: String) -> Bill {
         let newBill = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: context) as! Bill

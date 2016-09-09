@@ -1,38 +1,49 @@
 import UIKit
 import CoreData
 
-class OverviewViewController: UIViewController, BillDetailViewControllerDelegate, UITableViewDataSource {
+protocol BillDetailViewControllerDelegate {
+    func BillDetailViewControllerDidCancel(controller: BillDetailViewController);
+//    func BillDetailViewControllerDidFinishAddingBill(controller: BillDetailViewController, bill: Bill);
+}
 
-    @IBOutlet weak var tableView: UITableView!
+class BillDetailViewController: UITableViewController {
 
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var bills = [Bill]()
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var amountField: UITextField!
+    @IBOutlet weak var dateField: UITextField!
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        let fetchRequest = NSFetchRequest(entityName: "Bill")
-
-        do {
-            let results = try managedObjectContext.executeFetchRequest(fetchRequest)
-            bills = results as! [Bill]
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
-    }
+    var delegate: BillDetailViewControllerDelegate?
+    var managedObjectContext: NSManagedObjectContext?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Bill Tracker"
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        title = "Add Bill"
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        nameField.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+
+    @IBAction func savePressed(sender: AnyObject) {
+    }
+
+
+    @IBAction func cancelPressed(sender: AnyObject) {
+        if (delegate != nil) {
+            delegate!.BillDetailViewControllerDidCancel(self)
+        }
+    }
+
+
+    /*
     func saveBill(name: String) {
-        let bill = Bill.create(managedObjectContext, name: name)
+        let bill = Bill.create(managedContext, name: name)
         bills.append(bill)
     }
 
@@ -66,21 +77,8 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
-
+        
         presentViewController(alert, animated: true, completion: nil)
     }
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "addBill") {
-            let navController = segue.destinationViewController as! UINavigationController
-            let controller = navController.topViewController as! BillDetailViewController
-
-            controller.delegate = self
-            controller.managedObjectContext = managedObjectContext
-        }
-    }
-
-    func BillDetailViewControllerDidCancel(controller: BillDetailViewController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+     */
 }
