@@ -26,7 +26,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Bill Tracker"
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.registerNib(UINib(nibName: "OverviewCell", bundle: nil), forCellReuseIdentifier: "OverviewCell")
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -59,11 +59,11 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
+        let cell = tableView.dequeueReusableCellWithIdentifier("OverviewCell") as! OverviewCell
         let bill = fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
 
-        cell!.textLabel!.text = bill.valueForKey("name") as? String
-        return cell!
+        cell.nameLabel!.text = bill.valueForKey("name") as? String
+        return cell
     }
 
     // MARK: - NSFetchedResultsControllerDelegate

@@ -20,6 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let overviewViewController = navigationController.topViewController as! OverviewViewController
         overviewViewController.context = managedObjectContext
 
+        let navigationBarAppearance = UINavigationBar.appearance()
+        navigationBarAppearance.barTintColor = Constants.BAR_TINT_COLOUR
+        navigationBarAppearance.tintColor = Constants.TINT_COLOUR
+        navigationBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName: Constants.TINT_COLOUR]
+
         return true
     }
 

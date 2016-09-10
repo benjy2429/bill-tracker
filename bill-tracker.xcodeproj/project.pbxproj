@@ -10,6 +10,9 @@
 		9E5629AE1D833411008CB706 /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5629AD1D833411008CB706 /* BillDetailViewController.swift */; };
 		9E8308FF1D81DF96004C6EC5 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8308FD1D81DF96004C6EC5 /* Bill.swift */; };
 		9E8309071D81F5EC004C6EC5 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8309041D81F5EC004C6EC5 /* Category.swift */; };
+		9E8AD17D1D8447F900DEA3D4 /* OverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8AD17C1D8447F900DEA3D4 /* OverviewCell.swift */; };
+		9E8AD1831D8449F400DEA3D4 /* OverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E8AD1821D8449F400DEA3D4 /* OverviewCell.xib */; };
+		9E8AD1851D844D5200DEA3D4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8AD1841D844D5200DEA3D4 /* Constants.swift */; };
 		9EC0195F1D819D0D00415333 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC0195E1D819D0D00415333 /* AppDelegate.swift */; };
 		9EC019611D819D0D00415333 /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019601D819D0D00415333 /* OverviewViewController.swift */; };
 		9EC019641D819D0D00415333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EC019621D819D0D00415333 /* Main.storyboard */; };
@@ -41,6 +44,9 @@
 		9E5629AD1D833411008CB706 /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
 		9E8308FD1D81DF96004C6EC5 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		9E8309041D81F5EC004C6EC5 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		9E8AD17C1D8447F900DEA3D4 /* OverviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewCell.swift; sourceTree = "<group>"; };
+		9E8AD1821D8449F400DEA3D4 /* OverviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverviewCell.xib; sourceTree = "<group>"; };
+		9E8AD1841D844D5200DEA3D4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../Constants.swift; sourceTree = "<group>"; };
 		9EC0195B1D819D0D00415333 /* bill-tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bill-tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EC0195E1D819D0D00415333 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EC019601D819D0D00415333 /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +129,9 @@
 		9EC0195D1D819D0D00415333 /* bill-tracker */ = {
 			isa = PBXGroup;
 			children = (
+				9E8AD1841D844D5200DEA3D4 /* Constants.swift */,
+				9E8AD17C1D8447F900DEA3D4 /* OverviewCell.swift */,
+				9E8AD1821D8449F400DEA3D4 /* OverviewCell.xib */,
 				9E8309011D81E02B004C6EC5 /* ViewControllers */,
 				9E8309001D81E025004C6EC5 /* Models */,
 				9EC0195E1D819D0D00415333 /* AppDelegate.swift */,
@@ -257,6 +266,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E8AD1831D8449F400DEA3D4 /* OverviewCell.xib in Resources */,
 				9EC0196C1D819D0D00415333 /* LaunchScreen.storyboard in Resources */,
 				9EC019691D819D0D00415333 /* Assets.xcassets in Resources */,
 				9EC019641D819D0D00415333 /* Main.storyboard in Resources */,
@@ -290,6 +300,8 @@
 				9EC0195F1D819D0D00415333 /* AppDelegate.swift in Sources */,
 				9E8309071D81F5EC004C6EC5 /* Category.swift in Sources */,
 				9E5629AE1D833411008CB706 /* BillDetailViewController.swift in Sources */,
+				9E8AD17D1D8447F900DEA3D4 /* OverviewCell.swift in Sources */,
+				9E8AD1851D844D5200DEA3D4 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
