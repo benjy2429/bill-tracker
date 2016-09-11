@@ -17,10 +17,21 @@ class Bill: NSManagedObject {
     @NSManaged var date: NSDate?
     @NSManaged var category: Category?
 
-    class func create(context: NSManagedObjectContext, name: String) -> Bill {
+    var amountHumanized: String {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        return formatter.stringFromNumber(amount!)!
+    }
+
+    class func create(context: NSManagedObjectContext, params: (name: String, amount: NSDecimalNumber)) -> Bill {
         let newBill = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: context) as! Bill
-        newBill.name = name
+        newBill.name = params.name
+        newBill.amount = params.amount
 
         return newBill
+    }
+
+    func validate() {
+        // TODO: Migrate from viewcontrollers
     }
 }

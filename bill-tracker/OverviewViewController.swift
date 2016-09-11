@@ -62,8 +62,22 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("OverviewCell") as! OverviewCell
         let bill = fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
 
-        cell.nameLabel!.text = bill.valueForKey("name") as? String
+        cell.nameLabel!.text = bill.name
+        cell.amountLabel!.text = bill.amountHumanized
         return cell
+    }
+
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let bill = fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
+            context.deleteObject(bill)
+
+            do {
+                try context.save()
+            } catch {
+                fatalError("Error deleting bill: \(error)")
+            }
+        }
     }
 
     // MARK: - NSFetchedResultsControllerDelegate
@@ -79,11 +93,11 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
                 tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
             break
-//        case .Delete:
-//            if let indexPath = indexPath {
-//                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//            }
-//            break
+        case .Delete:
+            if let indexPath = indexPath {
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+            break
 //        case .Update:
 //            if let indexPath = indexPath {
 //                let cell = tableView.cellForRowAtIndexPath(indexPath) as! ToDoCell

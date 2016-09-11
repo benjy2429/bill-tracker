@@ -35,6 +35,15 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate {
         }
         if amountField.text?.characters.count == 0 {
             errors.append("Please enter an amount")
+            return errors
+        }
+        let amountValue = Double(amountField.text!)
+        if amountValue == nil {
+            errors.append("Invalid amount")
+            return errors
+        }
+        if amountValue < 0 {
+            errors.append("Amount must be greater than zero")
         }
         return errors
     }
@@ -63,7 +72,8 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate {
         }
 
         let name = nameField.text!
-        let bill = Bill.create(context, name: name)
+        let amount = NSDecimalNumber(string: amountField.text!)
+        let bill = Bill.create(context, params: (name, amount))
 
         delegate?.didAddBill(self, bill: bill)
     }
