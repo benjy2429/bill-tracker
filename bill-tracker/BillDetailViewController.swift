@@ -2,28 +2,40 @@ import UIKit
 import CoreData
 
 protocol BillDetailViewControllerDelegate {
-    func didCancel(controller: BillDetailViewController);
-    func didAddBill(controller: BillDetailViewController, bill: Bill);
+    func didCancel(controller: BillDetailViewController)
+    func didAddBill(controller: BillDetailViewController, bill: Bill)
 }
 
-class BillDetailViewController: UITableViewController, UITextFieldDelegate {
+class BillDetailViewController: UITableViewController, UITextFieldDelegate, PopupDatePickerDelegate {
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
-    @IBOutlet weak var dateField: UITextField!
+    @IBOutlet weak var dueDateLabel: UILabel!
 
     var delegate: BillDetailViewControllerDelegate!
     var context: NSManagedObjectContext!
+    var popupDatePicker: PopupDatePicker!
+    var dueDate: NSDate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         title = "Add Bill"
         amountField.delegate = self
+
+        dueDate = NSDate()
+        dueDateLabel.text = formatDate(dueDate)
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         nameField.becomeFirstResponder()
+    }
+
+    func formatDate(date: NSDate) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .LongStyle
+        return formatter.stringFromDate(date)
     }
 
     // MARK: - Validation
@@ -73,7 +85,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate {
 
         let name = nameField.text!
         let amount = NSDecimalNumber(string: amountField.text!)
-        let bill = Bill.create(context, params: (name, amount))
+        let bill = Bill.create(context, params: (name, amount, dueDate))
 
         delegate?.didAddBill(self, bill: bill)
     }
@@ -88,5 +100,33 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         // TODO: Reformat amount field to currency format
         return true
+    }
+
+    // MARK: - UITableViewDataSource
+
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+        if indexPath.row == 2 && popupDatePicker == nil {
+            // TODO: Extract nib heights into PopupDatePicker.class
+            popupDatePicker = PopupDatePicker(frame: CGRectMake(0, view.frame.height - 262, view.frame.width, 262))
+            popupDatePicker.delegate = self
+            navigationController!.view.addSubview(popupDatePicker)
+        }
+    }
+
+    // MARK: - PopupDatePickerDelegate
+
+    func didFinish(controller: PopupDatePicker, date: NSDate) {
+        popupDatePicker.removeFromSuperview()
+        popupDatePicker = nil
+
+        dueDate = date
+        dueDateLabel.text = formatDate(date)
+    }
+
+    func didCancel(controller: PopupDatePicker) {
+        popupDatePicker.removeFromSuperview()
+        popupDatePicker = nil
     }
 }
