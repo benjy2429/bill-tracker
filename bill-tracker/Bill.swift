@@ -14,7 +14,7 @@ class Bill: NSManagedObject {
 
     @NSManaged var name: String?
     @NSManaged var amount: NSDecimalNumber?
-    @NSManaged var date: NSDate?
+    @NSManaged var dueDate: NSDate?
     @NSManaged var category: Category?
 
     var amountHumanized: String {
@@ -23,11 +23,18 @@ class Bill: NSManagedObject {
         return formatter.stringFromNumber(amount!)!
     }
 
+    var dueDateHumanized: String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "EEEE dd MMM"
+        print(dueDate)
+        return formatter.stringFromDate(dueDate!)
+    }
+
     class func create(context: NSManagedObjectContext, params: (name: String, amount: NSDecimalNumber, dueDate: NSDate)) -> Bill {
         let newBill = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: context) as! Bill
         newBill.name = params.name
         newBill.amount = params.amount
-        newBill.date = params.dueDate
+        newBill.dueDate = params.dueDate
 
         return newBill
     }
