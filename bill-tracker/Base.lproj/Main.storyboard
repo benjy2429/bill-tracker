@@ -97,7 +97,7 @@
                                         <rect key="frame" x="0.0" y="187" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nd3-pG-Pi7" id="0RH-a5-41z">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-HN-X59">
@@ -106,20 +106,16 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="due date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-zK-HHC">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="due date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-zK-HHC">
                                                     <rect key="frame" x="524" y="12" width="68" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="lQS-PH-M5I"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Hz6-zK-HHC" firstAttribute="trailing" secondItem="0RH-a5-41z" secondAttribute="trailingMargin" id="bvE-yf-HQM"/>
-                                                <constraint firstItem="Hz6-zK-HHC" firstAttribute="centerX" secondItem="0RH-a5-41z" secondAttribute="centerX" id="dIU-qP-rdP"/>
-                                                <constraint firstItem="Hz6-zK-HHC" firstAttribute="centerY" secondItem="0RH-a5-41z" secondAttribute="centerY" id="xGh-Ka-5tu"/>
+                                                <constraint firstItem="Hz6-zK-HHC" firstAttribute="centerY" secondItem="0RH-a5-41z" secondAttribute="centerY" id="1nZ-UW-hWC"/>
+                                                <constraint firstItem="Hz6-zK-HHC" firstAttribute="trailing" secondItem="0RH-a5-41z" secondAttribute="trailingMargin" id="uHk-QN-y2x"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

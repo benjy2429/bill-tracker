@@ -15,6 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        if ((NSProcessInfo.processInfo().environment["SEED_CATEGORIES"]) != nil) {
+            Seed.seedCategories(managedObjectContext)
+        }
+
         let navigationController = self.window!.rootViewController! as! UINavigationController
 
         let overviewViewController = navigationController.topViewController as! OverviewViewController
