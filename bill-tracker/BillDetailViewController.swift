@@ -6,11 +6,12 @@ protocol BillDetailViewControllerDelegate {
     func didAddBill(controller: BillDetailViewController, bill: Bill)
 }
 
-class BillDetailViewController: UITableViewController, UITextFieldDelegate, PopupDatePickerDelegate {
+class BillDetailViewController: UITableViewController, UITextFieldDelegate, PopupDatePickerDelegate, CategoryCollectionViewControllerDelegate {
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var dueDateLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
 
     var delegate: BillDetailViewControllerDelegate!
     var context: NSManagedObjectContext!
@@ -112,8 +113,14 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
             popupDatePicker = PopupDatePicker(frame: CGRectMake(0, view.frame.height - 262, view.frame.width, 262))
             popupDatePicker.delegate = self
             navigationController!.view.addSubview(popupDatePicker)
+            return
+        }
+
+        if indexPath.row == 3 {
+            performSegueWithIdentifier("selectCategory", sender: self)
         }
     }
+
 
     // MARK: - PopupDatePickerDelegate
 
@@ -128,5 +135,24 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     func didCancel(controller: PopupDatePicker) {
         popupDatePicker.removeFromSuperview()
         popupDatePicker = nil
+    }
+
+    // MARK: - Navigation
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "selectCategory") {
+            let navController = segue.destinationViewController as! UINavigationController
+            let controller = navController.topViewController as! CategoryCollectionViewController
+
+            controller.context = context
+            controller.delegate = self
+
+        }
+    }
+
+    // MARK: - CategoryCollectionViewControllerDelegate
+
+    func didSelectCategory(controller: CategoryCollectionViewController, category: AnyObject?) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

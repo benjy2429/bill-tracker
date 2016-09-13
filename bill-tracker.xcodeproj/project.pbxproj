@@ -24,6 +24,7 @@
 		9EC019771D819D0D00415333 /* bill_trackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019761D819D0D00415333 /* bill_trackerTests.swift */; };
 		9EC019821D819D0D00415333 /* bill_trackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019811D819D0D00415333 /* bill_trackerUITests.swift */; };
 		9EF733031D88905A00A93A37 /* seed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF733021D88905A00A93A37 /* seed.swift */; };
+		9EF733051D88976F00A93A37 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF733041D88976F00A93A37 /* CategoryCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		9EC019811D819D0D00415333 /* bill_trackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bill_trackerUITests.swift; sourceTree = "<group>"; };
 		9EC019831D819D0D00415333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EF733021D88905A00A93A37 /* seed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = seed.swift; sourceTree = "<group>"; };
+		9EF733041D88976F00A93A37 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				9E5629AD1D833411008CB706 /* BillDetailViewController.swift */,
+				9EF733041D88976F00A93A37 /* CategoryCollectionViewController.swift */,
 				9EC019601D819D0D00415333 /* OverviewViewController.swift */,
 			);
 			name = ViewControllers;
@@ -308,6 +311,7 @@
 				9E8308FF1D81DF96004C6EC5 /* Bill.swift in Sources */,
 				9EC019671D819D0D00415333 /* bill_tracker.xcdatamodeld in Sources */,
 				9E44D6F81D85996E00CCE94C /* PopupDatePicker.swift in Sources */,
+				9EF733051D88976F00A93A37 /* CategoryCollectionViewController.swift in Sources */,
 				9EF733031D88905A00A93A37 /* seed.swift in Sources */,
 				9EC0195F1D819D0D00415333 /* AppDelegate.swift in Sources */,
 				9E8309071D81F5EC004C6EC5 /* Category.swift in Sources */,
