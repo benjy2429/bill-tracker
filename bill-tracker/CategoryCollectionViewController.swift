@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 import CoreData
+import FontAwesome_swift
 
 protocol CategoryCollectionViewControllerDelegate {
-    // TODO: Replace AnyObject with Category
-    func didSelectCategory(controller: CategoryCollectionViewController, category: AnyObject?)
+    func didSelectCategory(controller: CategoryCollectionViewController, category: Category)
 }
 
 class CategoryCollectionViewController: UICollectionViewController, NSFetchedResultsControllerDelegate {
@@ -39,6 +39,7 @@ class CategoryCollectionViewController: UICollectionViewController, NSFetchedRes
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Select Category"
+        collectionView!.registerNib(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -69,13 +70,20 @@ class CategoryCollectionViewController: UICollectionViewController, NSFetchedRes
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("categoryCell", forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! CategoryCell
+        let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Category
+
+        cell.iconLabel!.font = UIFont.fontAwesomeOfSize(36)
+        cell.iconLabel!.text = category.icon
+
+        cell.circleView.layer.cornerRadius = 50.0
+        cell.circleView.backgroundColor = category.colour
 
         return cell
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        delegate?.didSelectCategory(self, category: nil)
+        let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Category
+        delegate?.didSelectCategory(self, category: category)
     }
 }

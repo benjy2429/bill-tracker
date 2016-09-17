@@ -17,6 +17,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     var context: NSManagedObjectContext!
     var popupDatePicker: PopupDatePicker!
     var dueDate: NSDate!
+    var category: Category!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
         dueDate = NSDate()
         dueDateLabel.text = formatDate(dueDate)
+        categoryLabel.text = ""
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -41,30 +43,24 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
     // MARK: - Validation
 
-    func validationErrors() -> [String] {
-        var errors = [String]()
+    func validate() -> (isValid: Bool, message: String?) {
+        var message: String?
         if nameField.text?.characters.count == 0 {
-            errors.append("Please enter a name")
+            message = "Please enter a name"
+        } else if amountField.text?.characters.count == 0 {
+            message = "Please enter an amount"
+        } else if Double(amountField.text!) == nil {
+            message = "Invalid amount"
+        } else if Double(amountField.text!) < 0 {
+            message = "Amount must be greater than zero"
         }
-        if amountField.text?.characters.count == 0 {
-            errors.append("Please enter an amount")
-            return errors
-        }
-        let amountValue = Double(amountField.text!)
-        if amountValue == nil {
-            errors.append("Invalid amount")
-            return errors
-        }
-        if amountValue < 0 {
-            errors.append("Amount must be greater than zero")
-        }
-        return errors
+        return message == nil ? (true, nil) : (false, message)
     }
 
-    func showValidationError(errors: [String]) {
+    func showValidationError(error: String) {
         let alert = UIAlertController.init(
             title: "Error",
-            message: errors.joinWithSeparator("\n"),
+            message: error,
             preferredStyle: .Alert)
 
         let dismissAction = UIAlertAction(title: "OK", style: .Default) {
@@ -78,15 +74,15 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     // MARK: - IBActions
 
     @IBAction func savePressed(sender: AnyObject) {
-        let errors = validationErrors()
-        if !errors.isEmpty {
-            showValidationError(errors)
+        let validationResult = validate()
+        if !validationResult.isValid {
+            showValidationError(validationResult.message!)
             return
         }
 
         let name = nameField.text!
         let amount = NSDecimalNumber(string: amountField.text!)
-        let bill = Bill.create(context, params: (name, amount, dueDate))
+        let bill = Bill.create(context, params: (name, amount, dueDate, category))
 
         delegate?.didAddBill(self, bill: bill)
     }
@@ -152,7 +148,9 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
     // MARK: - CategoryCollectionViewControllerDelegate
 
-    func didSelectCategory(controller: CategoryCollectionViewController, category: AnyObject?) {
+    func didSelectCategory(controller: CategoryCollectionViewController, category: Category) {
+        self.category = category
+        categoryLabel.text! = category.name!
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

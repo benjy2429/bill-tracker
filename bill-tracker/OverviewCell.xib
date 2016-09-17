@@ -43,9 +43,19 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1C-Po-oGt">
                         <rect key="frame" x="22" y="20" width="40" height="40"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="trL-gC-jax">
+                                <rect key="frame" x="14" y="9" width="12" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="trL-gC-jax" firstAttribute="centerY" secondItem="F1C-Po-oGt" secondAttribute="centerY" id="LRq-cl-nRX"/>
                             <constraint firstAttribute="width" constant="40" id="ThR-d3-Jrv"/>
+                            <constraint firstItem="trL-gC-jax" firstAttribute="centerX" secondItem="F1C-Po-oGt" secondAttribute="centerX" id="aR3-MC-Qew"/>
                             <constraint firstAttribute="height" constant="40" id="tjr-OM-4vt"/>
                         </constraints>
                     </view>
@@ -112,6 +122,8 @@
             <connections>
                 <outlet property="amountLabel" destination="wYV-C9-Eak" id="AvW-w9-S0s"/>
                 <outlet property="dateLabel" destination="i1k-UE-IHV" id="VeF-cF-HMK"/>
+                <outlet property="iconBackground" destination="F1C-Po-oGt" id="FIu-Ec-fw0"/>
+                <outlet property="iconLabel" destination="trL-gC-jax" id="k12-Yu-chq"/>
                 <outlet property="nameLabel" destination="oly-uR-yK4" id="GwT-yU-kUb"/>
             </connections>
             <point key="canvasLocation" x="525" y="223"/>

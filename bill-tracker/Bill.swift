@@ -30,11 +30,12 @@ class Bill: NSManagedObject {
         return formatter.stringFromDate(dueDate!)
     }
 
-    class func create(context: NSManagedObjectContext, params: (name: String, amount: NSDecimalNumber, dueDate: NSDate)) -> Bill {
+    class func create(context: NSManagedObjectContext, params: (name: String, amount: NSDecimalNumber, dueDate: NSDate, category: Category)) -> Bill {
         let newBill = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: context) as! Bill
         newBill.name = params.name
         newBill.amount = params.amount
         newBill.dueDate = params.dueDate
+        newBill.category = params.category
 
         return newBill
     }
