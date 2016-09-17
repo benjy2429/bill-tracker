@@ -40,6 +40,7 @@ class CategoryCollectionViewController: UICollectionViewController, NSFetchedRes
         super.viewDidLoad()
         title = "Select Category"
         collectionView!.registerNib(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
+        collectionView!.contentInset = UIEdgeInsetsMake(10, 10, 10, 10)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -76,7 +77,7 @@ class CategoryCollectionViewController: UICollectionViewController, NSFetchedRes
         cell.iconLabel!.font = UIFont.fontAwesomeOfSize(36)
         cell.iconLabel!.text = category.icon
 
-        cell.circleView.layer.cornerRadius = 50.0
+        cell.circleView.layer.cornerRadius = 45
         cell.circleView.backgroundColor = category.colour
 
         return cell
