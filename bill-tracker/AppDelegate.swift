@@ -15,8 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        if ((NSProcessInfo.processInfo().environment["SEED_CATEGORIES"]) != nil) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+
+        if (!defaults.boolForKey("launchedBefore")) {
             Seed.seedCategories(managedObjectContext)
+            defaults.setBool(true, forKey: "launchedBefore")
         }
 
         let navigationController = self.window!.rootViewController! as! UINavigationController
