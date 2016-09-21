@@ -6,17 +6,20 @@ protocol BillDetailViewControllerDelegate {
     func didAddBill(controller: BillDetailViewController, bill: Bill)
 }
 
-class BillDetailViewController: UITableViewController, UITextFieldDelegate, PopupDatePickerDelegate, CategoryCollectionViewControllerDelegate {
+class BillDetailViewController: UITableViewController, UITextFieldDelegate, PopupDatePickerDelegate, PopupPickerDelegate, CategoryCollectionViewControllerDelegate {
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var dueDateLabel: UILabel!
+    @IBOutlet weak var repeatLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
 
     var delegate: BillDetailViewControllerDelegate!
     var context: NSManagedObjectContext!
     var popupDatePicker: PopupDatePicker!
+    var popupRepeatPicker: PopupPicker!
     var dueDate: NSDate!
+    var repeatInterval: Int!
     var category: Category!
 
     override func viewDidLoad() {
@@ -112,7 +115,16 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
             return
         }
 
-        if indexPath.row == 3 {
+        if indexPath.row == 3 && popupRepeatPicker == nil {
+            // TODO: Extract nib heights into PopupDatePicker.class
+            popupRepeatPicker = PopupPicker(frame: CGRectMake(0, view.frame.height - 262, view.frame.width, 262))
+            popupRepeatPicker.delegate = self
+            popupRepeatPicker.options = ["TEST"]
+            navigationController!.view.addSubview(popupRepeatPicker)
+            return
+        }
+
+        if indexPath.row == 4 {
             performSegueWithIdentifier("selectCategory", sender: self)
         }
     }
@@ -131,6 +143,21 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     func didCancel(controller: PopupDatePicker) {
         popupDatePicker.removeFromSuperview()
         popupDatePicker = nil
+    }
+
+    // MARK: - PopupPickerDelegate
+
+    func didChooseOption(controller: PopupPicker, selection: Int) {
+        popupRepeatPicker.removeFromSuperview()
+        popupRepeatPicker = nil
+
+        repeatInterval = selection
+        repeatLabel.text = String(selection)
+    }
+
+    func didCancelPopupPicker(controller: PopupPicker) {
+        popupRepeatPicker.removeFromSuperview()
+        popupRepeatPicker = nil
     }
 
     // MARK: - Navigation

@@ -27,6 +27,8 @@
 		9EC0196C1D819D0D00415333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EC0196A1D819D0D00415333 /* LaunchScreen.storyboard */; };
 		9EC019771D819D0D00415333 /* bill_trackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019761D819D0D00415333 /* bill_trackerTests.swift */; };
 		9EC019821D819D0D00415333 /* bill_trackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019811D819D0D00415333 /* bill_trackerUITests.swift */; };
+		9EDDA8451D8ED56A001DE21F /* PopupPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDA8441D8ED56A001DE21F /* PopupPicker.swift */; };
+		9EDDA8471D8ED576001DE21F /* PopupPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EDDA8461D8ED576001DE21F /* PopupPicker.xib */; };
 		9EF733031D88905A00A93A37 /* seed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF733021D88905A00A93A37 /* seed.swift */; };
 		9EF733051D88976F00A93A37 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF733041D88976F00A93A37 /* CategoryCollectionViewController.swift */; };
 		E2FFA54A3B83A1B27C54C164 /* Pods_bill_tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 062EB1A49D87450A9E3BC8B4 /* Pods_bill_tracker.framework */; };
@@ -80,6 +82,8 @@
 		9EC0197D1D819D0D00415333 /* bill-trackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "bill-trackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EC019811D819D0D00415333 /* bill_trackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bill_trackerUITests.swift; sourceTree = "<group>"; };
 		9EC019831D819D0D00415333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EDDA8441D8ED56A001DE21F /* PopupPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupPicker.swift; sourceTree = "<group>"; };
+		9EDDA8461D8ED576001DE21F /* PopupPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopupPicker.xib; sourceTree = "<group>"; };
 		9EF733021D88905A00A93A37 /* seed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = seed.swift; sourceTree = "<group>"; };
 		9EF733041D88976F00A93A37 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewController.swift; sourceTree = "<group>"; };
 		E0F7466FD21F6D6CDCDDBC10 /* Pods-bill-trackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bill-trackerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bill-trackerTests/Pods-bill-trackerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -130,6 +134,8 @@
 			children = (
 				9E43F2661D8DAF27001C1562 /* CategoryCell.xib */,
 				9E43F2681D8DAF58001C1562 /* CategoryCell.swift */,
+				9EDDA8461D8ED576001DE21F /* PopupPicker.xib */,
+				9EDDA8441D8ED56A001DE21F /* PopupPicker.swift */,
 				9E44D6F51D8598AF00CCE94C /* PopupDatePicker.xib */,
 				9E44D6F71D85996E00CCE94C /* PopupDatePicker.swift */,
 				9E8AD1821D8449F400DEA3D4 /* OverviewCell.xib */,
@@ -343,6 +349,7 @@
 				9E8AD1831D8449F400DEA3D4 /* OverviewCell.xib in Resources */,
 				9E43F2671D8DAF27001C1562 /* CategoryCell.xib in Resources */,
 				9EC0196C1D819D0D00415333 /* LaunchScreen.storyboard in Resources */,
+				9EDDA8471D8ED576001DE21F /* PopupPicker.xib in Resources */,
 				9EC019691D819D0D00415333 /* Assets.xcassets in Resources */,
 				9E44D6F61D8598AF00CCE94C /* PopupDatePicker.xib in Resources */,
 				9EC019641D819D0D00415333 /* Main.storyboard in Resources */,
@@ -499,6 +506,7 @@
 				9E44D6F81D85996E00CCE94C /* PopupDatePicker.swift in Sources */,
 				9EF733051D88976F00A93A37 /* CategoryCollectionViewController.swift in Sources */,
 				9EF733031D88905A00A93A37 /* seed.swift in Sources */,
+				9EDDA8451D8ED56A001DE21F /* PopupPicker.swift in Sources */,
 				9EC0195F1D819D0D00415333 /* AppDelegate.swift in Sources */,
 				9E8309071D81F5EC004C6EC5 /* Category.swift in Sources */,
 				9E5629AE1D833411008CB706 /* BillDetailViewController.swift in Sources */,

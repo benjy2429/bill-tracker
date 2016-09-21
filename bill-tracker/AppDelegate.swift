@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaults = NSUserDefaults.standardUserDefaults()
 
         if (!defaults.boolForKey("launchedBefore")) {
+            print("INFO: Database seeded")
             Seed.seedCategories(managedObjectContext)
             defaults.setBool(true, forKey: "launchedBefore")
         }
