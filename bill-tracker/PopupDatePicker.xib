@@ -25,18 +25,18 @@
                         <action selector="pickerChanged:" destination="-1" eventType="valueChanged" id="Utm-WJ-qUO"/>
                     </connections>
                 </datePicker>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="034-Xw-qe1">
-                    <rect key="frame" x="8" y="8" width="36" height="30"/>
-                    <state key="normal" title="Clear"/>
-                    <connections>
-                        <action selector="clear:" destination="-1" eventType="touchUpInside" id="aK8-3Z-v4T"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRq-cR-Axe">
                     <rect key="frame" x="555" y="7" width="37" height="30"/>
                     <state key="normal" title="Done"/>
                     <connections>
                         <action selector="finish:" destination="-1" eventType="touchUpInside" id="J4K-Kw-BQh"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="034-Xw-qe1">
+                    <rect key="frame" x="8" y="8" width="48" height="30"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="clear:" destination="-1" eventType="touchUpInside" id="aK8-3Z-v4T"/>
                     </connections>
                 </button>
             </subviews>

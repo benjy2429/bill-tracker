@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		942BFB2C22A9C7E224660131 /* Pods_bill_trackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F016AE3C286198320A0C7E75 /* Pods_bill_trackerTests.framework */; };
 		9590F29B6D10777C8BC6854A /* Pods_bill_trackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73E478D9F2AA83076FFEE5 /* Pods_bill_trackerUITests.framework */; };
+		9E221EED1D93028400FB14EB /* RepeatInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E221EEC1D93028400FB14EB /* RepeatInterval.swift */; };
 		9E43F2671D8DAF27001C1562 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E43F2661D8DAF27001C1562 /* CategoryCell.xib */; };
 		9E43F2691D8DAF58001C1562 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43F2681D8DAF58001C1562 /* CategoryCell.swift */; };
 		9E44D6F61D8598AF00CCE94C /* PopupDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E44D6F51D8598AF00CCE94C /* PopupDatePicker.xib */; };
@@ -58,6 +59,7 @@
 		4A38D1BB031D9421E5A148E7 /* Pods-bill-trackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bill-trackerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bill-trackerUITests/Pods-bill-trackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4D73E478D9F2AA83076FFEE5 /* Pods_bill_trackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bill_trackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DC081A43B248B99BDE5F6C7 /* Pods-bill-trackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bill-trackerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bill-trackerUITests/Pods-bill-trackerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9E221EEC1D93028400FB14EB /* RepeatInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatInterval.swift; sourceTree = "<group>"; };
 		9E43F2661D8DAF27001C1562 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		9E43F2681D8DAF58001C1562 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		9E44D6F51D8598AF00CCE94C /* PopupDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopupDatePicker.xib; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		9E8309001D81E025004C6EC5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9E221EEC1D93028400FB14EB /* RepeatInterval.swift */,
 				9E8308FD1D81DF96004C6EC5 /* Bill.swift */,
 				9E8309041D81F5EC004C6EC5 /* Category.swift */,
 			);
@@ -501,6 +504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EC019611D819D0D00415333 /* OverviewViewController.swift in Sources */,
+				9E221EED1D93028400FB14EB /* RepeatInterval.swift in Sources */,
 				9E8308FF1D81DF96004C6EC5 /* Bill.swift in Sources */,
 				9EC019671D819D0D00415333 /* bill_tracker.xcdatamodeld in Sources */,
 				9E44D6F81D85996E00CCE94C /* PopupDatePicker.swift in Sources */,

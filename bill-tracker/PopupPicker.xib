@@ -16,13 +16,6 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="262"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvs-lf-OKF">
-                    <rect key="frame" x="8" y="8" width="36" height="30"/>
-                    <state key="normal" title="Clear"/>
-                    <connections>
-                        <action selector="clear:" destination="-1" eventType="touchUpInside" id="Maq-TH-CfW"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ah-GQ-KNb">
                     <rect key="frame" x="555" y="7" width="37" height="30"/>
                     <state key="normal" title="Done"/>
@@ -33,6 +26,13 @@
                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rk9-2l-Tv7">
                     <rect key="frame" x="0.0" y="46" width="600" height="216"/>
                 </pickerView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvs-lf-OKF">
+                    <rect key="frame" x="8" y="8" width="48" height="30"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="clear:" destination="-1" eventType="touchUpInside" id="Maq-TH-CfW"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>

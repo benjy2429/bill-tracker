@@ -19,7 +19,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     var popupDatePicker: PopupDatePicker!
     var popupRepeatPicker: PopupPicker!
     var dueDate: NSDate!
-    var repeatInterval: Int!
+    var repeatInterval: Int = 0
     var category: Category!
 
     override func viewDidLoad() {
@@ -31,6 +31,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         dueDate = NSDate()
         dueDateLabel.text = formatDate(dueDate)
         categoryLabel.text = ""
+        repeatLabel.text = RepeatInterval.getByID(repeatInterval)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -85,7 +86,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
         let name = nameField.text!
         let amount = NSDecimalNumber(string: amountField.text!)
-        let bill = Bill.create(context, params: (name, amount, dueDate, category))
+        let bill = Bill.create(context, params: (name, amount, dueDate, category, repeatInterval))
 
         delegate?.didAddBill(self, bill: bill)
     }
@@ -119,7 +120,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
             // TODO: Extract nib heights into PopupDatePicker.class
             popupRepeatPicker = PopupPicker(frame: CGRectMake(0, view.frame.height - 262, view.frame.width, 262))
             popupRepeatPicker.delegate = self
-            popupRepeatPicker.options = ["TEST"]
+            popupRepeatPicker.options = RepeatInterval.humanized()
             navigationController!.view.addSubview(popupRepeatPicker)
             return
         }
@@ -152,7 +153,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         popupRepeatPicker = nil
 
         repeatInterval = selection
-        repeatLabel.text = String(selection)
+        repeatLabel.text = RepeatInterval.getByID(selection)
     }
 
     func didCancelPopupPicker(controller: PopupPicker) {
@@ -169,7 +170,6 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
             controller.context = context
             controller.delegate = self
-
         }
     }
 
