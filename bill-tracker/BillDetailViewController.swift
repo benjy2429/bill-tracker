@@ -57,6 +57,8 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
             message = "Invalid amount"
         } else if Double(amountField.text!) < 0 {
             message = "Amount must be greater than zero"
+        } else if category == nil {
+            message = "Please select a category"
         }
         return message == nil ? (true, nil) : (false, message)
     }
