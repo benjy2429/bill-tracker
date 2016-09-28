@@ -15,7 +15,6 @@ class PopupDatePicker: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print(self)
         setup()
     }
 

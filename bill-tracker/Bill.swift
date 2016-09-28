@@ -24,10 +24,39 @@ class Bill: NSManagedObject {
     }
 
     var dueDateHumanized: String {
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "EEEE dd MMM"
-        print(dueDate)
-        return formatter.stringFromDate(dueDate!)
+        return humanizeDate(dueDate!)
+    }
+
+    var nextDueDate: NSDate {
+        let calendar = NSCalendar.currentCalendar()
+        let dueComponents = calendar.components([.Day, .Month, .Year], fromDate: dueDate!)
+        let currentComponents = calendar.components([.Day, .Month, .Year], fromDate: NSDate())
+        let newComponents = NSDateComponents()
+
+        switch repeatInterval as! Int {
+//        case 1:
+//            // Daily
+//        case 2:
+//            // Weekly
+        case 3:
+            // Monthly
+            newComponents.day = dueComponents.day
+            newComponents.month = currentComponents.month
+            newComponents.year = currentComponents.year
+            let newDate = calendar.dateFromComponents(newComponents)
+
+            let daysToAdd = (currentComponents.day > dueComponents.day) ? 2 : 1
+            return calendar.dateByAddingUnit(.Month, value: daysToAdd, toDate: newDate!, options: [])!
+
+//        case 4:
+//            // Yearly
+        default:
+            return dueDate!
+        }
+    }
+
+    var nextDueDateHumanized: String {
+        return humanizeDate(nextDueDate)
     }
 
     class func create(context: NSManagedObjectContext, params: (name: String, amount: NSDecimalNumber, dueDate: NSDate, category: Category, repeatInterval: Int)) -> Bill {
@@ -41,7 +70,15 @@ class Bill: NSManagedObject {
         return newBill
     }
 
+    func humanizeDate(date: NSDate) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "EEEE dd MMM"
+        return formatter.stringFromDate(date)
+    }
+
     func validate() {
         // TODO: Migrate from viewcontrollers
     }
+
+
 }

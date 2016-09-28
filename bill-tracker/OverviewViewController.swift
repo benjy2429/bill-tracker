@@ -65,7 +65,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
         cell.nameLabel!.text = bill.name
         cell.amountLabel!.text = bill.amountHumanized
-        cell.dateLabel!.text = bill.dueDateHumanized
+        cell.dateLabel!.text = bill.nextDueDateHumanized
 
         cell.iconLabel!.font = UIFont.fontAwesomeOfSize(20)
         cell.iconLabel!.text = bill.category?.icon
