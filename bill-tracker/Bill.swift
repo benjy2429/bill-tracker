@@ -70,6 +70,14 @@ class Bill: NSManagedObject {
         return newBill
     }
 
+    func update(params: (name: String, amount: NSDecimalNumber, dueDate: NSDate, category: Category, repeatInterval: Int)) {
+        name = params.name
+        amount = params.amount
+        dueDate = params.dueDate
+        category = params.category
+        repeatInterval = params.repeatInterval
+    }
+
     func humanizeDate(date: NSDate) -> String {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "EEEE dd MMM"

@@ -25,6 +25,7 @@
                                 <inset key="separatorInset" minX="84" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="eEz-yY-JwA"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="06D-FI-P7v"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -46,6 +47,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="DsA-27-5WM" id="ZmG-T2-Qwb"/>
+                        <segue destination="mq1-tX-Nug" kind="presentation" identifier="editBill" id="ZjM-If-CJB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -285,4 +287,7 @@
             <point key="canvasLocation" x="1804" y="1240"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="ZjM-If-CJB"/>
+    </inferredMetricsTieBreakers>
 </document>

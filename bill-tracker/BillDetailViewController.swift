@@ -3,7 +3,7 @@ import CoreData
 
 protocol BillDetailViewControllerDelegate {
     func didCancel(controller: BillDetailViewController)
-    func didAddBill(controller: BillDetailViewController, bill: Bill)
+    func didSaveBill(controller: BillDetailViewController, bill: Bill)
 }
 
 class BillDetailViewController: UITableViewController, UITextFieldDelegate, PopupDatePickerDelegate, PopupPickerDelegate, CategoryCollectionViewControllerDelegate {
@@ -16,8 +16,11 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
     var delegate: BillDetailViewControllerDelegate!
     var context: NSManagedObjectContext!
+    var editingBill: Bill!
+
     var popupDatePicker: PopupDatePicker!
     var popupRepeatPicker: PopupPicker!
+
     var dueDate: NSDate!
     var repeatInterval: Int = 0
     var category: Category!
@@ -25,12 +28,24 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Add Bill"
         amountField.delegate = self
 
-        dueDate = NSDate()
+        if (editingBill == nil) {
+            title = "Add Bill"
+            dueDate = NSDate()
+            categoryLabel.text = ""
+
+        } else {
+            title = "Edit Bill"
+            nameField.text = editingBill.name
+            amountField.text = String(editingBill.amount!)
+            dueDate = editingBill.dueDate
+            category = editingBill.category
+            categoryLabel.text = editingBill.category?.name
+            repeatInterval = editingBill.repeatInterval as! Int
+        }
+
         dueDateLabel.text = formatDate(dueDate)
-        categoryLabel.text = ""
         repeatLabel.text = RepeatInterval.getByID(repeatInterval)
     }
 
@@ -88,11 +103,16 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
         let name = nameField.text!
         let amount = NSDecimalNumber(string: amountField.text!)
-        let bill = Bill.create(context, params: (name, amount, dueDate, category, repeatInterval))
 
-        delegate?.didAddBill(self, bill: bill)
+        if (editingBill == nil) {
+            let bill = Bill.create(context, params: (name, amount, dueDate, category, repeatInterval))
+            delegate?.didSaveBill(self, bill: bill)
+
+        } else {
+            editingBill.update((name, amount, dueDate, category, repeatInterval))
+            delegate?.didSaveBill(self, bill: editingBill)
+        }
     }
-
 
     @IBAction func cancelPressed(sender: AnyObject) {
         delegate?.didCancel(self)
@@ -105,7 +125,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         return true
     }
 
-    // MARK: - UITableViewDataSource
+    // MARK: - UITableViewDelegate
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)

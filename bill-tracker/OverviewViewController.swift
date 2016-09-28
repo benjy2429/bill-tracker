@@ -2,7 +2,7 @@ import UIKit
 import CoreData
 import FontAwesome_swift
 
-class OverviewViewController: UIViewController, BillDetailViewControllerDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
+class OverviewViewController: UIViewController, BillDetailViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -61,17 +61,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("OverviewCell") as! OverviewCell
-        let bill = fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
-
-        cell.nameLabel!.text = bill.name
-        cell.amountLabel!.text = bill.amountHumanized
-        cell.dateLabel!.text = bill.nextDueDateHumanized
-
-        cell.iconLabel!.font = UIFont.fontAwesomeOfSize(20)
-        cell.iconLabel!.text = bill.category?.icon
-        cell.iconBackground!.layer.cornerRadius = 20
-        cell.iconBackground!.backgroundColor = bill.category!.colour
-
+        configureCell(cell, atIndexPath: indexPath)
         return cell
     }
 
@@ -86,6 +76,27 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
                 fatalError("Error deleting bill: \(error)")
             }
         }
+    }
+
+    func configureCell(cell: OverviewCell, atIndexPath indexPath: NSIndexPath) {
+        let bill = fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
+
+        cell.nameLabel!.text = bill.name
+        cell.amountLabel!.text = bill.amountHumanized
+        cell.dateLabel!.text = bill.nextDueDateHumanized
+
+        cell.iconLabel!.font = UIFont.fontAwesomeOfSize(20)
+        cell.iconLabel!.text = bill.category?.icon
+        cell.iconBackground!.layer.cornerRadius = 20
+        cell.iconBackground!.backgroundColor = bill.category!.colour
+    }
+
+    // MARK: - UITableViewDelegate
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let bill = fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
+        performSegueWithIdentifier("editBill", sender: bill)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     // MARK: - NSFetchedResultsControllerDelegate
@@ -106,12 +117,12 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
             break
-//        case .Update:
-//            if let indexPath = indexPath {
-//                let cell = tableView.cellForRowAtIndexPath(indexPath) as! ToDoCell
-//                configureCell(cell, atIndexPath: indexPath)
-//            }
-//            break
+        case .Update:
+            if let indexPath = indexPath {
+                let cell = tableView.cellForRowAtIndexPath(indexPath) as! OverviewCell
+                configureCell(cell, atIndexPath: indexPath)
+            }
+            break
 //        case .Move:
 //            if let indexPath = indexPath {
 //                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
@@ -133,12 +144,16 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "addBill") {
+        if (segue.identifier == "addBill" || segue.identifier == "editBill") {
             let navController = segue.destinationViewController as! UINavigationController
             let controller = navController.topViewController as! BillDetailViewController
 
             controller.delegate = self
             controller.context = context
+
+            if (segue.identifier == "editBill") {
+                controller.editingBill = sender as! Bill
+            }
         }
     }
 
@@ -148,7 +163,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    func didAddBill(controller: BillDetailViewController, bill: Bill) {
+    func didSaveBill(controller: BillDetailViewController, bill: Bill) {
         do {
             try context.save()
         } catch {
