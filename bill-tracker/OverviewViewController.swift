@@ -2,27 +2,12 @@ import UIKit
 import CoreData
 import FontAwesome_swift
 
-class OverviewViewController: UIViewController, BillDetailViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class OverviewViewController: UIViewController, BillDetailViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
 
     var context: NSManagedObjectContext!
-
-    lazy var fetchedResultsController: NSFetchedResultsController = {
-        let fetchRequest = NSFetchRequest(entityName: "Bill")
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-
-        let _fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: self.context,
-            sectionNameKeyPath: nil,
-            cacheName: nil)
-
-        _fetchedResultsController.delegate = self
-
-        return _fetchedResultsController
-    }()
+    var bills = [Bill]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +18,11 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        let fetchRequest = NSFetchRequest(entityName: "Bill")
+
         do {
-            try fetchedResultsController.performFetch()
+            bills = try context.executeFetchRequest(fetchRequest) as! [Bill]
+            bills.sortInPlace({ $0.nextDueDate.compare($1.nextDueDate) == .OrderedAscending })
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
@@ -43,20 +31,11 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     // MARK: - UITableViewDataSource
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if let sections = fetchedResultsController.sections {
-            return sections.count
-        }
-
-        return 0
+        return 1
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sections = fetchedResultsController.sections {
-            let currentSection = sections[section]
-            return currentSection.numberOfObjects
-        }
-
-        return 0
+        return bills.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -67,7 +46,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            let bill = fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
+            let bill = bills[indexPath.row]
             context.deleteObject(bill)
 
             do {
@@ -75,11 +54,14 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
             } catch {
                 fatalError("Error deleting bill: \(error)")
             }
+
+            bills.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
 
     func configureCell(cell: OverviewCell, atIndexPath indexPath: NSIndexPath) {
-        let bill = fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
+        let bill = bills[indexPath.row]
 
         cell.nameLabel!.text = bill.name
         cell.amountLabel!.text = bill.amountHumanized
@@ -94,51 +76,9 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     // MARK: - UITableViewDelegate
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let bill = fetchedResultsController.objectAtIndexPath(indexPath) as! Bill
+        let bill = bills[indexPath.row]
         performSegueWithIdentifier("editBill", sender: bill)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-
-    // MARK: - NSFetchedResultsControllerDelegate
-
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        tableView.beginUpdates()
-    }
-
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch type {
-        case .Insert:
-            if let indexPath = newIndexPath {
-                tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            }
-            break
-        case .Delete:
-            if let indexPath = indexPath {
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            }
-            break
-        case .Update:
-            if let indexPath = indexPath {
-                let cell = tableView.cellForRowAtIndexPath(indexPath) as! OverviewCell
-                configureCell(cell, atIndexPath: indexPath)
-            }
-            break
-//        case .Move:
-//            if let indexPath = indexPath {
-//                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//            }
-//
-//            if let newIndexPath = newIndexPath {
-//                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
-//            }
-//            break
-        default:
-            break
-        }
-    }
-
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        tableView.endUpdates()
     }
 
     // MARK: - Navigation
@@ -171,5 +111,6 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
         }
 
         self.dismissViewControllerAnimated(true, completion: nil)
+        tableView.reloadData()
     }
 }
