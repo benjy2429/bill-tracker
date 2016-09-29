@@ -34,10 +34,11 @@ class PopupDatePicker: UIView {
         let view = loadNib()
         view.frame = bounds
         addSubview(self.view)
-        show()
     }
 
     func show() {
+        datePicker.date = date
+
         view.frame.origin.y += view.frame.height
 
         UIView.animateWithDuration(0.2, animations: {

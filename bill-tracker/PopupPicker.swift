@@ -36,10 +36,11 @@ class PopupPicker: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
         view.frame = bounds
         addSubview(self.view)
         picker.delegate = self
-        show()
     }
 
     func show() {
+        picker.selectRow(selectedOption, inComponent: 0, animated: false)
+
         view.frame.origin.y += view.frame.height
 
         UIView.animateWithDuration(0.2, animations: {
