@@ -29,6 +29,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         super.viewDidLoad()
 
         amountField.delegate = self
+        tableView.contentInset = UIEdgeInsetsMake(-CGFloat.min, 0, 0, 0)
 
         if (editingBill == nil) {
             title = "Add Bill"
@@ -158,6 +159,13 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         if indexPath.row == 4 {
             performSegueWithIdentifier("selectCategory", sender: self)
         }
+    }
+
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (section == 0) {
+            return CGFloat.min
+        }
+        return super.tableView(tableView, heightForHeaderInSection: section)
     }
 
 
