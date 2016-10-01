@@ -105,8 +105,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qhc-y7-ug1">
-                                                    <rect key="frame" x="120" y="7" width="460" height="44.5"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qhc-y7-ug1">
+                                                    <rect key="frame" x="120" y="8" width="460" height="43.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 </textField>
@@ -216,11 +216,18 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bfD-eJ-GQP">
-                                                    <rect key="frame" x="120" y="8" width="439" height="43.5"/>
+                                                    <rect key="frame" x="120" y="8" width="391" height="43.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6fK-P4-OeI" customClass="CategoryIcon" customModule="bill_tracker" customModuleProvider="target">
+                                                    <rect key="frame" x="519" y="9" width="40" height="40"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="IJa-B9-B1l"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="bfD-eJ-GQP" firstAttribute="bottom" secondItem="eCr-to-x6k" secondAttribute="bottomMargin" id="3tS-uQ-lys"/>
@@ -228,9 +235,18 @@
                                                 <constraint firstItem="SP6-AC-Dvj" firstAttribute="leading" secondItem="eCr-to-x6k" secondAttribute="leadingMargin" constant="12" id="FmY-Rt-nB3"/>
                                                 <constraint firstItem="bfD-eJ-GQP" firstAttribute="top" secondItem="eCr-to-x6k" secondAttribute="topMargin" id="SRR-bJ-o46"/>
                                                 <constraint firstItem="bfD-eJ-GQP" firstAttribute="trailing" secondItem="eCr-to-x6k" secondAttribute="trailingMargin" id="ZNJ-Wp-E6n"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6fK-P4-OeI" secondAttribute="bottom" constant="1.5" id="a0M-iM-Vce"/>
+                                                <constraint firstItem="6fK-P4-OeI" firstAttribute="trailing" secondItem="eCr-to-x6k" secondAttribute="trailingMargin" id="cTx-vb-GKO"/>
+                                                <constraint firstItem="6fK-P4-OeI" firstAttribute="leading" secondItem="bfD-eJ-GQP" secondAttribute="trailing" constant="8" id="dSV-sY-kcz"/>
+                                                <constraint firstItem="6fK-P4-OeI" firstAttribute="top" secondItem="eCr-to-x6k" secondAttribute="topMargin" constant="2" id="ijE-S8-OTi"/>
                                                 <constraint firstItem="bfD-eJ-GQP" firstAttribute="leading" secondItem="SP6-AC-Dvj" secondAttribute="trailing" constant="20" id="o9a-NX-gVo"/>
                                                 <constraint firstItem="SP6-AC-Dvj" firstAttribute="top" secondItem="eCr-to-x6k" secondAttribute="topMargin" constant="11" id="sGd-tT-FGA"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="ZNJ-Wp-E6n"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -255,6 +271,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="amountField" destination="qhc-y7-ug1" id="6em-qy-Eqm"/>
+                        <outlet property="categoryIcon" destination="6fK-P4-OeI" id="l5J-On-lRt"/>
                         <outlet property="categoryLabel" destination="bfD-eJ-GQP" id="3oo-7q-YFh"/>
                         <outlet property="dueDateLabel" destination="Hz6-zK-HHC" id="r63-mZ-Man"/>
                         <outlet property="nameField" destination="9X9-jc-TY3" id="qtC-Kq-MRl"/>

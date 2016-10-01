@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		942BFB2C22A9C7E224660131 /* Pods_bill_trackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F016AE3C286198320A0C7E75 /* Pods_bill_trackerTests.framework */; };
 		9590F29B6D10777C8BC6854A /* Pods_bill_trackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73E478D9F2AA83076FFEE5 /* Pods_bill_trackerUITests.framework */; };
+		9E05DAD61DA02A2500175437 /* CategoryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05DAD51DA02A2500175437 /* CategoryIcon.swift */; };
+		9E05DAD81DA02A2F00175437 /* CategoryIcon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E05DAD71DA02A2F00175437 /* CategoryIcon.xib */; };
 		9E221EED1D93028400FB14EB /* RepeatInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E221EEC1D93028400FB14EB /* RepeatInterval.swift */; };
 		9E43F2671D8DAF27001C1562 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E43F2661D8DAF27001C1562 /* CategoryCell.xib */; };
 		9E43F2691D8DAF58001C1562 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43F2681D8DAF58001C1562 /* CategoryCell.swift */; };
@@ -59,6 +61,8 @@
 		4A38D1BB031D9421E5A148E7 /* Pods-bill-trackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bill-trackerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bill-trackerUITests/Pods-bill-trackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4D73E478D9F2AA83076FFEE5 /* Pods_bill_trackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bill_trackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DC081A43B248B99BDE5F6C7 /* Pods-bill-trackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bill-trackerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bill-trackerUITests/Pods-bill-trackerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9E05DAD51DA02A2500175437 /* CategoryIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIcon.swift; sourceTree = "<group>"; };
+		9E05DAD71DA02A2F00175437 /* CategoryIcon.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryIcon.xib; sourceTree = "<group>"; };
 		9E221EEC1D93028400FB14EB /* RepeatInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatInterval.swift; sourceTree = "<group>"; };
 		9E43F2661D8DAF27001C1562 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		9E43F2681D8DAF58001C1562 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 				9E44D6F71D85996E00CCE94C /* PopupDatePicker.swift */,
 				9E8AD1821D8449F400DEA3D4 /* OverviewCell.xib */,
 				9E8AD17C1D8447F900DEA3D4 /* OverviewCell.swift */,
+				9E05DAD51DA02A2500175437 /* CategoryIcon.swift */,
+				9E05DAD71DA02A2F00175437 /* CategoryIcon.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -349,6 +355,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E05DAD81DA02A2F00175437 /* CategoryIcon.xib in Resources */,
 				9E8AD1831D8449F400DEA3D4 /* OverviewCell.xib in Resources */,
 				9E43F2671D8DAF27001C1562 /* CategoryCell.xib in Resources */,
 				9EC0196C1D819D0D00415333 /* LaunchScreen.storyboard in Resources */,
@@ -515,6 +522,7 @@
 				9E8309071D81F5EC004C6EC5 /* Category.swift in Sources */,
 				9E5629AE1D833411008CB706 /* BillDetailViewController.swift in Sources */,
 				9E8AD17D1D8447F900DEA3D4 /* OverviewCell.swift in Sources */,
+				9E05DAD61DA02A2500175437 /* CategoryIcon.swift in Sources */,
 				9E8AD1851D844D5200DEA3D4 /* Constants.swift in Sources */,
 				9E43F2691D8DAF58001C1562 /* CategoryCell.swift in Sources */,
 			);

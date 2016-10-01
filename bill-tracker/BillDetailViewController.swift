@@ -13,6 +13,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var repeatLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var categoryIcon: CategoryIcon!
 
     var delegate: BillDetailViewControllerDelegate!
     var context: NSManagedObjectContext!
@@ -43,6 +44,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
             dueDate = editingBill.dueDate
             category = editingBill.category
             categoryLabel.text = editingBill.category?.name
+            categoryIcon.setCategory(category)
             repeatInterval = editingBill.repeatInterval as! Int
         }
 
@@ -216,6 +218,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     func didSelectCategory(controller: CategoryCollectionViewController, category: Category) {
         self.category = category
         categoryLabel.text! = category.name!
+        categoryIcon.setCategory(category)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

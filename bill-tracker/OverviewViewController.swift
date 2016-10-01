@@ -1,6 +1,5 @@
 import UIKit
 import CoreData
-import FontAwesome_swift
 
 class OverviewViewController: UIViewController, BillDetailViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
 
@@ -67,10 +66,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
         cell.amountLabel!.text = bill.amountHumanized
         cell.dateLabel!.text = bill.nextDueDateHumanized
 
-        cell.iconLabel!.font = UIFont.fontAwesomeOfSize(20)
-        cell.iconLabel!.text = bill.category?.icon
-        cell.iconBackground!.layer.cornerRadius = 20
-        cell.iconBackground!.backgroundColor = bill.category!.colour
+        cell.categoryIcon.setCategory(bill.category)
     }
 
     // MARK: - UITableViewDelegate
