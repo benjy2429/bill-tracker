@@ -4,27 +4,58 @@ import CoreData
 class OverviewViewController: UIViewController, BillDetailViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var swapIcon: UIBarButtonItem!
+
+    enum TableViews {
+        case Upcoming
+        case Past
+    }
 
     var context: NSManagedObjectContext!
-    var bills = [Bill]()
+    var upcomingBills = [Bill]()
+    var pastBills = [Bill]()
+    var currentView: TableViews = .Upcoming
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Bill Tracker"
+        updateTitle()
+        swapIcon.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(20)], forState: .Normal)
         tableView.registerNib(UINib(nibName: "OverviewCell", bundle: nil), forCellReuseIdentifier: "OverviewCell")
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        fetchData()
+    }
 
+    func fetchData() {
         let fetchRequest = NSFetchRequest(entityName: "Bill")
 
         do {
-            bills = try context.executeFetchRequest(fetchRequest) as! [Bill]
-            bills.sortInPlace({ $0.nextDueDate.compare($1.nextDueDate) == .OrderedAscending })
+            let fetchedBills = try context.executeFetchRequest(fetchRequest) as! [Bill]
+
+            upcomingBills = fetchedBills.filter({ $0.nextDueDate.compare(NSDate()) == .OrderedDescending })
+            pastBills = fetchedBills.filter({ $0.nextDueDate.compare(NSDate()) == .OrderedAscending })
+
+            upcomingBills.sortInPlace({ $0.nextDueDate.compare($1.nextDueDate) == .OrderedAscending })
+            pastBills.sortInPlace({ $0.nextDueDate.compare($1.nextDueDate) == .OrderedAscending })
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
+    }
+
+    func updateTitle() {
+        if (currentView == .Upcoming) {
+            title = "Due Soon"
+            swapIcon.title = String.fontAwesomeIconWithName(.CalendarCheckO)
+        } else {
+            title = "Past Bills"
+            swapIcon.title = String.fontAwesomeIconWithName(.Calendar)
+        }
+    }
+
+    func upcomingSection() -> Bool {
+        return currentView == .Upcoming
     }
 
     // MARK: - UITableViewDataSource
@@ -34,7 +65,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bills.count
+        return upcomingSection() ? upcomingBills.count : pastBills.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -45,7 +76,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            let bill = bills[indexPath.row]
+            let bill = upcomingSection() ? upcomingBills[indexPath.row] : pastBills[indexPath.row]
             context.deleteObject(bill)
 
             do {
@@ -54,13 +85,13 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
                 fatalError("Error deleting bill: \(error)")
             }
 
-            bills.removeAtIndex(indexPath.row)
+            upcomingSection() ? upcomingBills.removeAtIndex(indexPath.row) : pastBills.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
 
     func configureCell(cell: OverviewCell, atIndexPath indexPath: NSIndexPath) {
-        let bill = bills[indexPath.row]
+        let bill = upcomingSection() ? upcomingBills[indexPath.row] : pastBills[indexPath.row]
 
         cell.nameLabel!.text = bill.name
         cell.amountLabel!.text = bill.amountHumanized
@@ -72,7 +103,8 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     // MARK: - UITableViewDelegate
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let bill = bills[indexPath.row]
+        let bill = upcomingSection() ? upcomingBills[indexPath.row] : pastBills[indexPath.row]
+
         performSegueWithIdentifier("editBill", sender: bill)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
@@ -93,6 +125,12 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
         }
     }
 
+    @IBAction func swapButtonPressed(sender: AnyObject) {
+        currentView = currentView == .Upcoming ? .Past : .Upcoming
+        updateTitle()
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
+    }
+
     // MARK: - BillDetailViewControllerDelegate
 
     func didCancel(controller: BillDetailViewController) {
@@ -107,6 +145,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
         }
 
         self.dismissViewControllerAnimated(true, completion: nil)
+        fetchData()
         tableView.reloadData()
     }
 }
