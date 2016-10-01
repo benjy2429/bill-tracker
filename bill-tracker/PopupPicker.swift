@@ -34,8 +34,16 @@ class PopupPicker: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
     func setup() {
         let view = loadNib()
         view.frame = bounds
+        setShadow()
         addSubview(self.view)
         picker.delegate = self
+    }
+
+    func setShadow() {
+        view.layer.masksToBounds = false
+        view.layer.shadowOffset = CGSizeMake(0, 0)
+        view.layer.shadowRadius = 15
+        view.layer.shadowOpacity = 0.2
     }
 
     func show() {

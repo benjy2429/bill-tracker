@@ -138,7 +138,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
         if indexPath.row == 3 && popupDatePicker == nil {
             // TODO: Extract nib heights into PopupDatePicker.class
-            popupDatePicker = PopupDatePicker(frame: CGRectMake(0, view.frame.height - 262, view.frame.width, 262))
+            popupDatePicker = PopupDatePicker(frame: CGRectMake(0, view.frame.height - 198, view.frame.width, 262))
             popupDatePicker.delegate = self
             if (editingBill != nil) {
                 popupDatePicker.date = editingBill.dueDate!
@@ -150,7 +150,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
         if indexPath.row == 4 && popupRepeatPicker == nil {
             // TODO: Extract nib heights into PopupDatePicker.class
-            popupRepeatPicker = PopupPicker(frame: CGRectMake(0, view.frame.height - 262, view.frame.width, 262))
+            popupRepeatPicker = PopupPicker(frame: CGRectMake(0, view.frame.height - 198, view.frame.width, 262))
             popupRepeatPicker.delegate = self
             popupRepeatPicker.options = RepeatInterval.humanized()
             if (editingBill != nil) {
