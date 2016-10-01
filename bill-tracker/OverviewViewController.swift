@@ -5,6 +5,8 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var swapIcon: UIBarButtonItem!
+    @IBOutlet weak var headerDateLabel: UILabel!
+    @IBOutlet weak var headerStatsLabel: UILabel!
 
     enum TableViews {
         case Upcoming
@@ -18,7 +20,6 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateTitle()
         swapIcon.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(20)], forState: .Normal)
         tableView.registerNib(UINib(nibName: "OverviewCell", bundle: nil), forCellReuseIdentifier: "OverviewCell")
     }
@@ -26,6 +27,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
+        updateTitle()
     }
 
     func fetchData() {
@@ -39,6 +41,9 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
             upcomingBills.sortInPlace({ $0.nextDueDate.compare($1.nextDueDate) == .OrderedAscending })
             pastBills.sortInPlace({ $0.nextDueDate.compare($1.nextDueDate) == .OrderedAscending })
+
+            configureHeader()
+
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
@@ -56,6 +61,21 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
     func upcomingSection() -> Bool {
         return currentView == .Upcoming
+    }
+
+    func configureHeader() {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMMM d"
+        headerDateLabel.text = dateFormatter.stringFromDate(NSDate())
+
+        let monthBills = Bill.billsDueThisMonth(upcomingBills)
+        let monthAmount = monthBills.reduce(0) { $0 + ($1.amount?.doubleValue)! }
+
+        let currencyFormatter = NSNumberFormatter()
+        currencyFormatter.numberStyle = .CurrencyStyle
+        let monthAmountString = currencyFormatter.stringFromNumber(monthAmount)!
+
+        headerStatsLabel.text = "\(monthBills.count) bills due this month, totalling \(monthAmountString)"
     }
 
     // MARK: - UITableViewDataSource

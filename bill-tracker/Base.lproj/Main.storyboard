@@ -23,6 +23,25 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="84" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="WAk-LZ-4Oy">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="today date label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQo-bL-7x5">
+                                            <rect key="frame" x="20" y="8" width="560" height="32"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="26"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="stats label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKs-EN-vtW">
+                                            <rect key="frame" x="20" y="44" width="560" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="eEz-yY-JwA"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="06D-FI-P7v"/>
@@ -51,6 +70,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="headerDateLabel" destination="bQo-bL-7x5" id="D0B-Tj-qhV"/>
+                        <outlet property="headerStatsLabel" destination="WKs-EN-vtW" id="v8e-4M-OWF"/>
                         <outlet property="swapIcon" destination="njj-fI-PgX" id="xWm-sK-7ik"/>
                         <outlet property="tableView" destination="DsA-27-5WM" id="ZmG-T2-Qwb"/>
                         <segue destination="mq1-tX-Nug" kind="presentation" identifier="editBill" id="ZjM-If-CJB"/>
