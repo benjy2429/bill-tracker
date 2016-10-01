@@ -10,6 +10,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
+    @IBOutlet weak var payeeField: UITextField!
     @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var repeatLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
@@ -41,6 +42,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
             title = "Edit Bill"
             nameField.text = editingBill.name
             amountField.text = String(editingBill.amount!)
+            payeeField.text = editingBill.payee
             dueDate = editingBill.dueDate
             category = editingBill.category
             categoryLabel.text = editingBill.category?.name
@@ -106,13 +108,14 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
         let name = nameField.text!
         let amount = NSDecimalNumber(string: amountField.text!)
+        let payee = payeeField.text!
 
         if (editingBill == nil) {
-            let bill = Bill.create(context, params: (name, amount, dueDate, category, repeatInterval))
+            let bill = Bill.create(context, params: (name, amount, payee, dueDate, category, repeatInterval))
             delegate?.didSaveBill(self, bill: bill)
 
         } else {
-            editingBill.update((name, amount, dueDate, category, repeatInterval))
+            editingBill.update((name, amount, payee, dueDate, category, repeatInterval))
             delegate?.didSaveBill(self, bill: editingBill)
         }
     }
@@ -133,7 +136,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
-        if indexPath.row == 2 && popupDatePicker == nil {
+        if indexPath.row == 3 && popupDatePicker == nil {
             // TODO: Extract nib heights into PopupDatePicker.class
             popupDatePicker = PopupDatePicker(frame: CGRectMake(0, view.frame.height - 262, view.frame.width, 262))
             popupDatePicker.delegate = self
@@ -145,7 +148,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
             return
         }
 
-        if indexPath.row == 3 && popupRepeatPicker == nil {
+        if indexPath.row == 4 && popupRepeatPicker == nil {
             // TODO: Extract nib heights into PopupDatePicker.class
             popupRepeatPicker = PopupPicker(frame: CGRectMake(0, view.frame.height - 262, view.frame.width, 262))
             popupRepeatPicker.delegate = self
@@ -158,7 +161,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
             return
         }
 
-        if indexPath.row == 4 {
+        if indexPath.row == 5 {
             performSegueWithIdentifier("selectCategory", sender: self)
         }
     }

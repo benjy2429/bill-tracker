@@ -78,7 +78,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9X9-jc-TY3">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9X9-jc-TY3">
                                                     <rect key="frame" x="120" y="8" width="460" height="43.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -88,7 +88,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="xbX-GA-VOg"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -111,7 +111,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qhc-y7-ug1">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qhc-y7-ug1">
                                                     <rect key="frame" x="120" y="8" width="460" height="43.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -121,7 +121,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="m19-UY-1rx"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -137,8 +137,41 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Nd3-pG-Pi7">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="qHT-1B-EKN">
                                         <rect key="frame" x="0.0" y="155" width="600" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qHT-1B-EKN" id="hQ2-Dk-tYV">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payee" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15F-A1-ZSe">
+                                                    <rect key="frame" x="20" y="19" width="80" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="1o6-kV-iZI"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H6O-KC-sdU">
+                                                    <rect key="frame" x="120" y="8" width="460" height="43.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="H6O-KC-sdU" firstAttribute="leading" secondItem="15F-A1-ZSe" secondAttribute="trailing" constant="20" id="6C2-2Y-HML"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="H6O-KC-sdU" secondAttribute="trailing" constant="12" id="8Yt-Bs-Sqv"/>
+                                                <constraint firstItem="H6O-KC-sdU" firstAttribute="bottom" secondItem="hQ2-Dk-tYV" secondAttribute="bottomMargin" id="XF5-MQ-xLF"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="15F-A1-ZSe" secondAttribute="bottom" constant="11.5" id="ZT4-Mf-jbz"/>
+                                                <constraint firstItem="15F-A1-ZSe" firstAttribute="leading" secondItem="hQ2-Dk-tYV" secondAttribute="leadingMargin" constant="12" id="gZa-1E-la0"/>
+                                                <constraint firstItem="15F-A1-ZSe" firstAttribute="top" secondItem="hQ2-Dk-tYV" secondAttribute="topMargin" constant="11" id="iS4-Fz-NLH"/>
+                                                <constraint firstItem="H6O-KC-sdU" firstAttribute="top" secondItem="hQ2-Dk-tYV" secondAttribute="topMargin" id="na0-R7-Igz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Nd3-pG-Pi7">
+                                        <rect key="frame" x="0.0" y="215" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nd3-pG-Pi7" id="0RH-a5-41z">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
@@ -155,7 +188,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="bMu-Y2-sO7"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -172,7 +205,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="5Na-wR-Imx">
-                                        <rect key="frame" x="0.0" y="215" width="600" height="60"/>
+                                        <rect key="frame" x="0.0" y="275" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Na-wR-Imx" id="u5Q-t1-gug">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
@@ -189,7 +222,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="S1v-cJ-2ZG"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -206,7 +239,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="B1k-d4-mId">
-                                        <rect key="frame" x="0.0" y="275" width="600" height="60"/>
+                                        <rect key="frame" x="0.0" y="335" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B1k-d4-mId" id="eCr-to-x6k">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="59.5"/>
@@ -217,7 +250,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="8FT-zC-cdd"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -227,8 +260,8 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6fK-P4-OeI" customClass="CategoryIcon" customModule="bill_tracker" customModuleProvider="target">
-                                                    <rect key="frame" x="519" y="9" width="40" height="40"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6fK-P4-OeI" customClass="CategoryIcon" customModule="bill_tracker" customModuleProvider="target">
+                                                    <rect key="frame" x="519" y="10" width="40" height="40"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="IJa-B9-B1l"/>
@@ -281,6 +314,7 @@
                         <outlet property="categoryLabel" destination="bfD-eJ-GQP" id="3oo-7q-YFh"/>
                         <outlet property="dueDateLabel" destination="Hz6-zK-HHC" id="r63-mZ-Man"/>
                         <outlet property="nameField" destination="9X9-jc-TY3" id="qtC-Kq-MRl"/>
+                        <outlet property="payeeField" destination="H6O-KC-sdU" id="vzQ-Tx-6r1"/>
                         <outlet property="repeatLabel" destination="p3a-ut-Fb7" id="Kqj-nD-LYe"/>
                         <segue destination="nnf-8e-JC5" kind="show" identifier="selectCategory" id="WGO-Yj-O93"/>
                     </connections>

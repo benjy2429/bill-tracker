@@ -16,10 +16,10 @@
             <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OfX-zh-YCE">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OfX-zh-YCE">
                     <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rod-px-0Lu">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rod-px-0Lu">
                             <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -27,9 +27,21 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="rod-px-0Lu" secondAttribute="trailing" id="3Rn-ve-NjM"/>
+                        <constraint firstItem="rod-px-0Lu" firstAttribute="top" secondItem="OfX-zh-YCE" secondAttribute="top" id="BER-Q9-LzA"/>
+                        <constraint firstItem="rod-px-0Lu" firstAttribute="leading" secondItem="OfX-zh-YCE" secondAttribute="leading" id="jkg-Ua-0yc"/>
+                        <constraint firstAttribute="bottom" secondItem="rod-px-0Lu" secondAttribute="bottom" id="xLM-p0-agE"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="OfX-zh-YCE" secondAttribute="bottom" id="fBX-Xa-eLd"/>
+                <constraint firstItem="OfX-zh-YCE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="sZk-ZZ-Xvl"/>
+                <constraint firstItem="OfX-zh-YCE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="tZu-Wd-5fc"/>
+                <constraint firstAttribute="trailing" secondItem="OfX-zh-YCE" secondAttribute="trailing" id="zrC-Nq-3rD"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="9" y="26"/>

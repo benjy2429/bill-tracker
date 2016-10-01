@@ -13,6 +13,7 @@ class Bill: NSManagedObject {
 
     @NSManaged var name: String?
     @NSManaged var amount: NSDecimalNumber?
+    @NSManaged var payee: String?
     @NSManaged var dueDate: NSDate?
     @NSManaged var repeatInterval: NSNumber?
     @NSManaged var category: Category?
@@ -59,10 +60,11 @@ class Bill: NSManagedObject {
         return humanizeDate(nextDueDate)
     }
 
-    class func create(context: NSManagedObjectContext, params: (name: String, amount: NSDecimalNumber, dueDate: NSDate, category: Category, repeatInterval: Int)) -> Bill {
+    class func create(context: NSManagedObjectContext, params: (name: String, amount: NSDecimalNumber, payee: String, dueDate: NSDate, category: Category, repeatInterval: Int)) -> Bill {
         let newBill = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: context) as! Bill
         newBill.name = params.name
         newBill.amount = params.amount
+        newBill.payee = params.payee
         newBill.dueDate = params.dueDate
         newBill.category = params.category
         newBill.repeatInterval = params.repeatInterval
@@ -70,9 +72,10 @@ class Bill: NSManagedObject {
         return newBill
     }
 
-    func update(params: (name: String, amount: NSDecimalNumber, dueDate: NSDate, category: Category, repeatInterval: Int)) {
+    func update(params: (name: String, amount: NSDecimalNumber, payee: String, dueDate: NSDate, category: Category, repeatInterval: Int)) {
         name = params.name
         amount = params.amount
+        payee = params.payee
         dueDate = params.dueDate
         category = params.category
         repeatInterval = params.repeatInterval
