@@ -88,20 +88,13 @@ class Bill: NSManagedObject {
     }
 
     class func billsDueThisMonth(bills: [Bill]) -> [Bill] {
-        // TODO: Replace with filter?
         let calendar = NSCalendar.currentCalendar()
         let currentMonth = calendar.component(.Month, fromDate: NSDate())
 
-        var results = [Bill]()
-
-        for bill in bills {
-            let month = calendar.component(.Month, fromDate: bill.nextDueDate)
-            if month == currentMonth {
-                results.append(bill)
-            }
+        return bills.filter() {
+            let month = calendar.component(.Month, fromDate: $0.nextDueDate)
+            return month == currentMonth
         }
-
-        return results
     }
 
     func validate() {
