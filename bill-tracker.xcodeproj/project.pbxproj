@@ -319,6 +319,7 @@
 				TargetAttributes = {
 					9EC0195A1D819D0D00415333 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = ZTBN2X25UL;
 						LastSwiftMigration = 0800;
 					};
 					9EC019711D819D0D00415333 = {
@@ -672,6 +673,7 @@
 			baseConfigurationReference = 081C0F733D23E2DFDF36E043 /* Pods-bill-tracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZTBN2X25UL;
 				INFOPLIST_FILE = "bill-tracker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.ben-carr.bill-tracker";
@@ -685,6 +687,7 @@
 			baseConfigurationReference = F4BF78E35A9381A05B331FF1 /* Pods-bill-tracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZTBN2X25UL;
 				INFOPLIST_FILE = "bill-tracker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.ben-carr.bill-tracker";

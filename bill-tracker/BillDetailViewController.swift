@@ -135,6 +135,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        view.endEditing(true)
 
         if indexPath.row == 3 && popupDatePicker == nil {
             // TODO: Extract nib heights into PopupDatePicker.class
