@@ -1,8 +1,12 @@
 PODS:
   - FontAwesome.swift (0.11.1)
+  - Nimble (5.0.0)
+  - Quick (0.10.0)
 
 DEPENDENCIES:
   - FontAwesome.swift (from `https://github.com/thii/FontAwesome.swift`)
+  - Nimble
+  - Quick
 
 EXTERNAL SOURCES:
   FontAwesome.swift:
@@ -15,7 +19,9 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   FontAwesome.swift: 9879cd6a1462bf160662d519f7b7474d73bdd1c3
+  Nimble: 56fc9f5020effa2206de22c3dd910f4fb011b92f
+  Quick: 5d290df1c69d5ee2f0729956dcf0fd9a30447eaa
 
-PODFILE CHECKSUM: f98a854ec8183142692a689200b05434d935180d
+PODFILE CHECKSUM: 2dac64e20c8e4e5e6994af8941a31a5717ac8d4b
 
 COCOAPODS: 1.0.1

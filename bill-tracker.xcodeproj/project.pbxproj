@@ -12,6 +12,8 @@
 		9E05DAD61DA02A2500175437 /* CategoryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05DAD51DA02A2500175437 /* CategoryIcon.swift */; };
 		9E05DAD81DA02A2F00175437 /* CategoryIcon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E05DAD71DA02A2F00175437 /* CategoryIcon.xib */; };
 		9E221EED1D93028400FB14EB /* RepeatInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E221EEC1D93028400FB14EB /* RepeatInterval.swift */; };
+		9E41FAAA1DA150B300DAE3F5 /* BillTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E41FAA91DA150B300DAE3F5 /* BillTests.swift */; };
+		9E41FAAE1DA1514E00DAE3F5 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E41FAAD1DA1514E00DAE3F5 /* TestHelpers.swift */; };
 		9E43F2671D8DAF27001C1562 /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E43F2661D8DAF27001C1562 /* CategoryCell.xib */; };
 		9E43F2691D8DAF58001C1562 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43F2681D8DAF58001C1562 /* CategoryCell.swift */; };
 		9E44D6F61D8598AF00CCE94C /* PopupDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E44D6F51D8598AF00CCE94C /* PopupDatePicker.xib */; };
@@ -28,7 +30,6 @@
 		9EC019671D819D0D00415333 /* bill_tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019651D819D0D00415333 /* bill_tracker.xcdatamodeld */; };
 		9EC019691D819D0D00415333 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EC019681D819D0D00415333 /* Assets.xcassets */; };
 		9EC0196C1D819D0D00415333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EC0196A1D819D0D00415333 /* LaunchScreen.storyboard */; };
-		9EC019771D819D0D00415333 /* bill_trackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019761D819D0D00415333 /* bill_trackerTests.swift */; };
 		9EC019821D819D0D00415333 /* bill_trackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC019811D819D0D00415333 /* bill_trackerUITests.swift */; };
 		9EDDA8451D8ED56A001DE21F /* PopupPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDA8441D8ED56A001DE21F /* PopupPicker.swift */; };
 		9EDDA8471D8ED576001DE21F /* PopupPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EDDA8461D8ED576001DE21F /* PopupPicker.xib */; };
@@ -64,6 +65,8 @@
 		9E05DAD51DA02A2500175437 /* CategoryIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryIcon.swift; sourceTree = "<group>"; };
 		9E05DAD71DA02A2F00175437 /* CategoryIcon.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryIcon.xib; sourceTree = "<group>"; };
 		9E221EEC1D93028400FB14EB /* RepeatInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatInterval.swift; sourceTree = "<group>"; };
+		9E41FAA91DA150B300DAE3F5 /* BillTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillTests.swift; sourceTree = "<group>"; };
+		9E41FAAD1DA1514E00DAE3F5 /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		9E43F2661D8DAF27001C1562 /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		9E43F2681D8DAF58001C1562 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		9E44D6F51D8598AF00CCE94C /* PopupDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopupDatePicker.xib; sourceTree = "<group>"; };
@@ -83,7 +86,6 @@
 		9EC0196B1D819D0D00415333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9EC0196D1D819D0D00415333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EC019721D819D0D00415333 /* bill-trackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "bill-trackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9EC019761D819D0D00415333 /* bill_trackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bill_trackerTests.swift; sourceTree = "<group>"; };
 		9EC019781D819D0D00415333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EC0197D1D819D0D00415333 /* bill-trackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "bill-trackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EC019811D819D0D00415333 /* bill_trackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bill_trackerUITests.swift; sourceTree = "<group>"; };
@@ -215,7 +217,8 @@
 		9EC019751D819D0D00415333 /* bill-trackerTests */ = {
 			isa = PBXGroup;
 			children = (
-				9EC019761D819D0D00415333 /* bill_trackerTests.swift */,
+				9E41FAAD1DA1514E00DAE3F5 /* TestHelpers.swift */,
+				9E41FAA91DA150B300DAE3F5 /* BillTests.swift */,
 				9EC019781D819D0D00415333 /* Info.plist */,
 			);
 			path = "bill-trackerTests";
@@ -536,7 +539,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EC019771D819D0D00415333 /* bill_trackerTests.swift in Sources */,
+				9E41FAAA1DA150B300DAE3F5 /* BillTests.swift in Sources */,
+				9E41FAAE1DA1514E00DAE3F5 /* TestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,6 +677,7 @@
 			baseConfigurationReference = 081C0F733D23E2DFDF36E043 /* Pods-bill-tracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZTBN2X25UL;
 				INFOPLIST_FILE = "bill-tracker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -687,6 +692,7 @@
 			baseConfigurationReference = F4BF78E35A9381A05B331FF1 /* Pods-bill-tracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = ZTBN2X25UL;
 				INFOPLIST_FILE = "bill-tracker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

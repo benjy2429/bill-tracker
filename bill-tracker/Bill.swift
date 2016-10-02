@@ -44,10 +44,13 @@ class Bill: NSManagedObject {
             newComponents.day = dueComponents.day
             newComponents.month = currentComponents.month
             newComponents.year = currentComponents.year
-            let newDate = calendar.date(from: newComponents)
+            let newDate = calendar.date(from: newComponents)!
 
-            let daysToAdd = (currentComponents.day! > dueComponents.day!) ? 2 : 1
-            return calendar.date(byAdding: .month, value: daysToAdd, to: newDate!)!
+            if (currentComponents.day! > dueComponents.day!) {
+                return calendar.date(byAdding: .month, value: 1, to: newDate)!
+            }
+
+            return newDate
 
 //        case 4:
 //            // Yearly

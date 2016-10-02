@@ -6,12 +6,19 @@ target 'bill-tracker' do
 
   pod 'FontAwesome.swift', :git => 'https://github.com/thii/FontAwesome.swift'
 
+  def test_pods
+    pod 'Quick'
+    pod 'Nimble'
+  end
+
   target 'bill-trackerTests' do
     inherit! :search_paths
+    test_pods
   end
 
   target 'bill-trackerUITests' do
     inherit! :search_paths
+    test_pods
   end
 
   post_install do |installer|
