@@ -30,7 +30,7 @@ class CategoryIcon: UIView {
         contentView = loadViewFromNib()
 
         contentView!.frame = bounds
-        contentView!.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        contentView!.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
 
         iconLabel.font = UIFont.fontAwesomeOfSize(18)
         backgroundView.layer.cornerRadius = (contentView?.frame.width)! / 2
@@ -41,21 +41,21 @@ class CategoryIcon: UIView {
 
     func loadViewFromNib() -> UIView! {
 
-        let bundle = NSBundle(forClass: self.dynamicType)
-        let nib = UINib(nibName: String(self.dynamicType), bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        let bundle = Bundle(for: type(of: self))
+        let nib = UINib(nibName: String(describing: type(of: self)), bundle: bundle)
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
 
         return view
     }
 
-    func setCategory(category: Category?) {
+    func setCategory(_ category: Category?) {
         if (category == nil) {
             iconLabel.text = ""
-            backgroundView.opaque = true
+            backgroundView.isOpaque = true
 
         } else {
             iconLabel.text = category!.icon
-            backgroundView.opaque = false
+            backgroundView.isOpaque = false
             backgroundView.backgroundColor = category!.colour
         }
     }

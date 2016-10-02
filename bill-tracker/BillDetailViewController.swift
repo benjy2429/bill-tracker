@@ -2,8 +2,8 @@ import UIKit
 import CoreData
 
 protocol BillDetailViewControllerDelegate {
-    func didCancel(controller: BillDetailViewController)
-    func didSaveBill(controller: BillDetailViewController, bill: Bill)
+    func didCancel(_ controller: BillDetailViewController)
+    func didSaveBill(_ controller: BillDetailViewController, bill: Bill)
 }
 
 class BillDetailViewController: UITableViewController, UITextFieldDelegate, PopupDatePickerDelegate, PopupPickerDelegate, CategoryCollectionViewControllerDelegate {
@@ -23,7 +23,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     var popupDatePicker: PopupDatePicker!
     var popupRepeatPicker: PopupPicker!
 
-    var dueDate: NSDate!
+    var dueDate: Date!
     var repeatInterval: Int = 0
     var category: Category!
 
@@ -31,17 +31,17 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         super.viewDidLoad()
 
         amountField.delegate = self
-        tableView.contentInset = UIEdgeInsetsMake(-CGFloat.min, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsetsMake(-CGFloat.leastNormalMagnitude, 0, 0, 0)
 
         if (editingBill == nil) {
             title = "Add Bill"
-            dueDate = NSDate()
+            dueDate = Date()
             categoryLabel.text = ""
 
         } else {
             title = "Edit Bill"
             nameField.text = editingBill.name
-            amountField.text = String(editingBill.amount!)
+            amountField.text = String(describing: editingBill.amount!)
             payeeField.text = editingBill.payee
             dueDate = editingBill.dueDate
             category = editingBill.category
@@ -54,15 +54,15 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         repeatLabel.text = RepeatInterval.getByID(repeatInterval)
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         nameField.becomeFirstResponder()
     }
 
-    func formatDate(date: NSDate) -> String {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .LongStyle
-        return formatter.stringFromDate(date)
+    func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        return formatter.string(from: date)
     }
 
     // MARK: - Validation
@@ -75,7 +75,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
             message = "Please enter an amount"
         } else if Double(amountField.text!) == nil {
             message = "Invalid amount"
-        } else if Double(amountField.text!) < 0 {
+        } else if Double(amountField.text!)! < 0.0 {
             message = "Amount must be greater than zero"
         } else if category == nil {
             message = "Please select a category"
@@ -83,23 +83,23 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         return message == nil ? (true, nil) : (false, message)
     }
 
-    func showValidationError(error: String) {
+    func showValidationError(_ error: String) {
         let alert = UIAlertController.init(
             title: "Error",
             message: error,
-            preferredStyle: .Alert)
+            preferredStyle: .alert)
 
-        let dismissAction = UIAlertAction(title: "OK", style: .Default) {
+        let dismissAction = UIAlertAction(title: "OK", style: .default) {
             (action: UIAlertAction) -> Void in
         }
 
         alert.addAction(dismissAction)
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 
     // MARK: - IBActions
 
-    @IBAction func savePressed(sender: AnyObject) {
+    @IBAction func savePressed(_ sender: AnyObject) {
         let validationResult = validate()
         if !validationResult.isValid {
             showValidationError(validationResult.message!)
@@ -120,25 +120,25 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         }
     }
 
-    @IBAction func cancelPressed(sender: AnyObject) {
+    @IBAction func cancelPressed(_ sender: AnyObject) {
         delegate?.didCancel(self)
     }
 
     // MARK: - UITextFieldDelegate
 
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // TODO: Reformat amount field to currency format
         return true
     }
 
     // MARK: - UITableViewDelegate
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
 
         if indexPath.row == 3 && popupDatePicker == nil {
             // TODO: Extract nib heights into PopupDatePicker.class
-            popupDatePicker = PopupDatePicker(frame: CGRectMake(0, view.frame.height - 198, view.frame.width, 262))
+            popupDatePicker = PopupDatePicker(frame: CGRect(x: 0, y: view.frame.height - 198, width: view.frame.width, height: 262))
             popupDatePicker.delegate = self
             if (editingBill != nil) {
                 popupDatePicker.date = editingBill.dueDate!
@@ -150,7 +150,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
         if indexPath.row == 4 && popupRepeatPicker == nil {
             // TODO: Extract nib heights into PopupDatePicker.class
-            popupRepeatPicker = PopupPicker(frame: CGRectMake(0, view.frame.height - 198, view.frame.width, 262))
+            popupRepeatPicker = PopupPicker(frame: CGRect(x: 0, y: view.frame.height - 198, width: view.frame.width, height: 262))
             popupRepeatPicker.delegate = self
             popupRepeatPicker.options = RepeatInterval.humanized()
             if (editingBill != nil) {
@@ -162,13 +162,13 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         }
 
         if indexPath.row == 5 {
-            performSegueWithIdentifier("selectCategory", sender: self)
+            performSegue(withIdentifier: "selectCategory", sender: self)
         }
     }
 
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (section == 0) {
-            return CGFloat.min
+            return CGFloat.leastNormalMagnitude
         }
         return super.tableView(tableView, heightForHeaderInSection: section)
     }
@@ -176,7 +176,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
     // MARK: - PopupDatePickerDelegate
 
-    func didFinish(controller: PopupDatePicker, date: NSDate) {
+    func didFinish(_ controller: PopupDatePicker, date: Date) {
         popupDatePicker.removeFromSuperview()
         popupDatePicker = nil
 
@@ -184,14 +184,14 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         dueDateLabel.text = formatDate(date)
     }
 
-    func didCancel(controller: PopupDatePicker) {
+    func didCancel(_ controller: PopupDatePicker) {
         popupDatePicker.removeFromSuperview()
         popupDatePicker = nil
     }
 
     // MARK: - PopupPickerDelegate
 
-    func didChooseOption(controller: PopupPicker, selection: Int) {
+    func didChooseOption(_ controller: PopupPicker, selection: Int) {
         popupRepeatPicker.removeFromSuperview()
         popupRepeatPicker = nil
 
@@ -199,16 +199,16 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         repeatLabel.text = RepeatInterval.getByID(selection)
     }
 
-    func didCancelPopupPicker(controller: PopupPicker) {
+    func didCancelPopupPicker(_ controller: PopupPicker) {
         popupRepeatPicker.removeFromSuperview()
         popupRepeatPicker = nil
     }
 
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "selectCategory") {
-            let navController = segue.destinationViewController as! UINavigationController
+            let navController = segue.destination as! UINavigationController
             let controller = navController.topViewController as! CategoryCollectionViewController
 
             controller.context = context
@@ -218,10 +218,10 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
     // MARK: - CategoryCollectionViewControllerDelegate
 
-    func didSelectCategory(controller: CategoryCollectionViewController, category: Category) {
+    func didSelectCategory(_ controller: CategoryCollectionViewController, category: Category) {
         self.category = category
         categoryLabel.text! = category.name!
         categoryIcon.setCategory(category)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 }

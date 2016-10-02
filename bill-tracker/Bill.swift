@@ -14,25 +14,25 @@ class Bill: NSManagedObject {
     @NSManaged var name: String?
     @NSManaged var amount: NSDecimalNumber?
     @NSManaged var payee: String?
-    @NSManaged var dueDate: NSDate?
+    @NSManaged var dueDate: Date?
     @NSManaged var repeatInterval: NSNumber?
     @NSManaged var category: Category?
 
     var amountHumanized: String {
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .CurrencyStyle
-        return formatter.stringFromNumber(amount!)!
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        return formatter.string(from: amount!)!
     }
 
     var dueDateHumanized: String {
         return humanizeDate(dueDate!)
     }
 
-    var nextDueDate: NSDate {
-        let calendar = NSCalendar.currentCalendar()
-        let dueComponents = calendar.components([.Day, .Month, .Year], fromDate: dueDate!)
-        let currentComponents = calendar.components([.Day, .Month, .Year], fromDate: NSDate())
-        let newComponents = NSDateComponents()
+    var nextDueDate: Date {
+        let calendar = Calendar.current
+        let dueComponents = calendar.dateComponents([.day, .month, .year], from: dueDate!)
+        let currentComponents = calendar.dateComponents([.day, .month, .year], from: Date())
+        var newComponents = DateComponents()
 
         switch repeatInterval as! Int {
 //        case 1:
@@ -44,10 +44,10 @@ class Bill: NSManagedObject {
             newComponents.day = dueComponents.day
             newComponents.month = currentComponents.month
             newComponents.year = currentComponents.year
-            let newDate = calendar.dateFromComponents(newComponents)
+            let newDate = calendar.date(from: newComponents)
 
-            let daysToAdd = (currentComponents.day > dueComponents.day) ? 2 : 1
-            return calendar.dateByAddingUnit(.Month, value: daysToAdd, toDate: newDate!, options: [])!
+            let daysToAdd = (currentComponents.day! > dueComponents.day!) ? 2 : 1
+            return calendar.date(byAdding: .month, value: daysToAdd, to: newDate!)!
 
 //        case 4:
 //            // Yearly
@@ -60,39 +60,39 @@ class Bill: NSManagedObject {
         return humanizeDate(nextDueDate)
     }
 
-    class func create(context: NSManagedObjectContext, params: (name: String, amount: NSDecimalNumber, payee: String, dueDate: NSDate, category: Category, repeatInterval: Int)) -> Bill {
-        let newBill = NSEntityDescription.insertNewObjectForEntityForName("Bill", inManagedObjectContext: context) as! Bill
+    class func create(_ context: NSManagedObjectContext, params: (name: String, amount: NSDecimalNumber, payee: String, dueDate: Date, category: Category, repeatInterval: Int)) -> Bill {
+        let newBill = NSEntityDescription.insertNewObject(forEntityName: "Bill", into: context) as! Bill
         newBill.name = params.name
         newBill.amount = params.amount
         newBill.payee = params.payee
         newBill.dueDate = params.dueDate
         newBill.category = params.category
-        newBill.repeatInterval = params.repeatInterval
+        newBill.repeatInterval = params.repeatInterval as NSNumber?
 
         return newBill
     }
 
-    func update(params: (name: String, amount: NSDecimalNumber, payee: String, dueDate: NSDate, category: Category, repeatInterval: Int)) {
+    func update(_ params: (name: String, amount: NSDecimalNumber, payee: String, dueDate: Date, category: Category, repeatInterval: Int)) {
         name = params.name
         amount = params.amount
         payee = params.payee
         dueDate = params.dueDate
         category = params.category
-        repeatInterval = params.repeatInterval
+        repeatInterval = params.repeatInterval as NSNumber?
     }
 
-    func humanizeDate(date: NSDate) -> String {
-        let formatter = NSDateFormatter()
+    func humanizeDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
         formatter.dateFormat = "EEEE dd MMM"
-        return formatter.stringFromDate(date)
+        return formatter.string(from: date)
     }
 
-    class func billsDueThisMonth(bills: [Bill]) -> [Bill] {
-        let calendar = NSCalendar.currentCalendar()
-        let currentMonth = calendar.component(.Month, fromDate: NSDate())
+    class func billsDueThisMonth(_ bills: [Bill]) -> [Bill] {
+        let calendar = Calendar.current
+        let currentMonth = calendar.component(.month, from: Date())
 
         return bills.filter() {
-            let month = calendar.component(.Month, fromDate: $0.nextDueDate)
+            let month = calendar.component(.month, from: $0.nextDueDate)
             return month == currentMonth
         }
     }

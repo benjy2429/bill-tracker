@@ -1,8 +1,8 @@
 import UIKit
 
 protocol PopupDatePickerDelegate {
-    func didFinish(controller: PopupDatePicker, date: NSDate)
-    func didCancel(controller: PopupDatePicker)
+    func didFinish(_ controller: PopupDatePicker, date: Date)
+    func didCancel(_ controller: PopupDatePicker)
 }
 
 class PopupDatePicker: UIView {
@@ -11,7 +11,7 @@ class PopupDatePicker: UIView {
     @IBOutlet weak var datePicker: UIDatePicker!
 
     var delegate: PopupDatePickerDelegate! = nil
-    var date: NSDate = NSDate()
+    var date: Date = Date()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,9 +24,9 @@ class PopupDatePicker: UIView {
     }
 
     func loadNib() -> UIView {
-        let bundle = NSBundle(forClass: self.dynamicType)
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: "PopupDatePicker", bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil).first as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil).first as! UIView
         return view
     }
 
@@ -39,7 +39,7 @@ class PopupDatePicker: UIView {
 
     func setShadow() {
         view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSizeMake(0, 0)
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
         view.layer.shadowRadius = 15
         view.layer.shadowOpacity = 0.2
     }
@@ -49,30 +49,30 @@ class PopupDatePicker: UIView {
 
         view.frame.origin.y += view.frame.height
 
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.view.frame.origin.y -= self.view.frame.height
         })
     }
 
-    func hide(callback: () -> ()) {
-        UIView.animateWithDuration(0.2, animations: {
+    func hide(_ callback: @escaping () -> ()) {
+        UIView.animate(withDuration: 0.2, animations: {
             self.view.frame.origin.y += self.view.frame.height
-        }) { Void in
+        }, completion: { Void in
             callback()
-        }
+        })
     }
 
-    @IBAction func pickerChanged(sender: AnyObject) {
+    @IBAction func pickerChanged(_ sender: AnyObject) {
         date = sender.date
     }
 
-    @IBAction func finish(sender: AnyObject) {
+    @IBAction func finish(_ sender: AnyObject) {
         hide({
             self.delegate.didFinish(self, date: self.date)
         })
     }
 
-    @IBAction func clear(sender: AnyObject) {
+    @IBAction func clear(_ sender: AnyObject) {
         hide({
             self.delegate.didCancel(self)
         })

@@ -15,17 +15,17 @@ let intervals:[String] = [
 ]
 
 class RepeatInterval {
-    static func getByID(id: Int) -> String {
-        return intervals[id].capitalizedString
+    static func getByID(_ id: Int) -> String {
+        return intervals[id].capitalized
     }
 
-    static func getByName(name: String) -> Int {
-        return intervals.indexOf(name)!
+    static func getByName(_ name: String) -> Int {
+        return intervals.index(of: name)!
     }
 
     static func humanized() -> [String] {
         return intervals.map {
-            $0.capitalizedString
+            $0.capitalized
         }
     }
 }

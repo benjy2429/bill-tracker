@@ -9,38 +9,47 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     @IBOutlet weak var headerStatsLabel: UILabel!
 
     enum TableViews {
-        case Upcoming
-        case Past
+        case upcoming
+        case past
     }
 
     var context: NSManagedObjectContext!
     var upcomingBills = [Bill]()
     var pastBills = [Bill]()
-    var currentView: TableViews = .Upcoming
+    var currentView: TableViews = .upcoming
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        swapIcon.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(20)], forState: .Normal)
-        tableView.registerNib(UINib(nibName: "OverviewCell", bundle: nil), forCellReuseIdentifier: "OverviewCell")
+        swapIcon.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesomeOfSize(20)], for: .normal)
+        tableView.register(UINib(nibName: "OverviewCell", bundle: nil), forCellReuseIdentifier: "OverviewCell")
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
         updateTitle()
     }
 
     func fetchData() {
-        let fetchRequest = NSFetchRequest(entityName: "Bill")
+        let fetchRequest: NSFetchRequest<Bill> = NSFetchRequest(entityName: "Bill")
 
         do {
-            let fetchedBills = try context.executeFetchRequest(fetchRequest) as! [Bill]
+            let fetchedBills = try context.fetch(fetchRequest)
 
-            upcomingBills = fetchedBills.filter({ $0.nextDueDate.compare(NSDate()) == .OrderedDescending })
-            pastBills = fetchedBills.filter({ $0.nextDueDate.compare(NSDate()) == .OrderedAscending })
+            let calendar = NSCalendar.current
+            let currentDate = Date()
 
-            upcomingBills.sortInPlace({ $0.nextDueDate.compare($1.nextDueDate) == .OrderedAscending })
-            pastBills.sortInPlace({ $0.nextDueDate.compare($1.nextDueDate) == .OrderedAscending })
+            upcomingBills = fetchedBills.filter({
+                let comparison = calendar.compare($0.nextDueDate, to: currentDate, toGranularity: .day)
+                return comparison == .orderedSame || comparison == .orderedDescending
+            })
+            pastBills = fetchedBills.filter({
+                let comparison = calendar.compare($0.nextDueDate, to: currentDate, toGranularity: .day)
+                return comparison == .orderedAscending
+            })
+
+            upcomingBills.sort(by: { $0.nextDueDate.compare($1.nextDueDate as Date) == .orderedAscending })
+            pastBills.sort(by: { $0.nextDueDate.compare($1.nextDueDate as Date) == .orderedAscending })
 
             configureHeader()
 
@@ -50,7 +59,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     }
 
     func updateTitle() {
-        if (currentView == .Upcoming) {
+        if (currentView == .upcoming) {
             title = "Due Soon"
             swapIcon.title = String.fontAwesomeIconWithName(.CalendarCheckO)
         } else {
@@ -60,44 +69,44 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
     }
 
     func upcomingSection() -> Bool {
-        return currentView == .Upcoming
+        return currentView == .upcoming
     }
 
     func configureHeader() {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM d"
-        headerDateLabel.text = dateFormatter.stringFromDate(NSDate())
+        headerDateLabel.text = dateFormatter.string(from: Date())
 
         let monthBills = Bill.billsDueThisMonth(upcomingBills)
         let monthAmount = monthBills.reduce(0) { $0 + ($1.amount?.doubleValue)! }
 
-        let currencyFormatter = NSNumberFormatter()
-        currencyFormatter.numberStyle = .CurrencyStyle
-        let monthAmountString = currencyFormatter.stringFromNumber(monthAmount)!
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle = .currency
+        let monthAmountString = currencyFormatter.string(from: NSNumber(value: monthAmount))!
 
         headerStatsLabel.text = "\(monthBills.count) bills due this month, totalling \(monthAmountString)"
     }
 
     // MARK: - UITableViewDataSource
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return upcomingSection() ? upcomingBills.count : pastBills.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("OverviewCell") as! OverviewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OverviewCell") as! OverviewCell
         configureCell(cell, atIndexPath: indexPath)
         return cell
     }
 
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             let bill = upcomingSection() ? upcomingBills[indexPath.row] : pastBills[indexPath.row]
-            context.deleteObject(bill)
+            context.delete(bill)
 
             do {
                 try context.save()
@@ -105,12 +114,16 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
                 fatalError("Error deleting bill: \(error)")
             }
 
-            upcomingSection() ? upcomingBills.removeAtIndex(indexPath.row) : pastBills.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            if upcomingSection() {
+                upcomingBills.remove(at: indexPath.row)
+            } else {
+                pastBills.remove(at: indexPath.row)
+            }
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
-    func configureCell(cell: OverviewCell, atIndexPath indexPath: NSIndexPath) {
+    func configureCell(_ cell: OverviewCell, atIndexPath indexPath: IndexPath) {
         let bill = upcomingSection() ? upcomingBills[indexPath.row] : pastBills[indexPath.row]
 
         cell.nameLabel!.text = bill.name
@@ -122,18 +135,18 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
 
     // MARK: - UITableViewDelegate
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bill = upcomingSection() ? upcomingBills[indexPath.row] : pastBills[indexPath.row]
 
-        performSegueWithIdentifier("editBill", sender: bill)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        performSegue(withIdentifier: "editBill", sender: bill)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "addBill" || segue.identifier == "editBill") {
-            let navController = segue.destinationViewController as! UINavigationController
+            let navController = segue.destination as! UINavigationController
             let controller = navController.topViewController as! BillDetailViewController
 
             controller.delegate = self
@@ -145,26 +158,26 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
         }
     }
 
-    @IBAction func swapButtonPressed(sender: AnyObject) {
-        currentView = currentView == .Upcoming ? .Past : .Upcoming
+    @IBAction func swapButtonPressed(_ sender: AnyObject) {
+        currentView = currentView == .upcoming ? .past : .upcoming
         updateTitle()
-        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
+        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
     }
 
     // MARK: - BillDetailViewControllerDelegate
 
-    func didCancel(controller: BillDetailViewController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func didCancel(_ controller: BillDetailViewController) {
+        self.dismiss(animated: true, completion: nil)
     }
 
-    func didSaveBill(controller: BillDetailViewController, bill: Bill) {
+    func didSaveBill(_ controller: BillDetailViewController, bill: Bill) {
         do {
             try context.save()
         } catch {
             fatalError("Error saving bill: \(error)")
         }
 
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         fetchData()
         tableView.reloadData()
     }

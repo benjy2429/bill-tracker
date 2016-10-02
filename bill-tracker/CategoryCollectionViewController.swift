@@ -12,7 +12,7 @@ import CoreData
 import FontAwesome_swift
 
 protocol CategoryCollectionViewControllerDelegate {
-    func didSelectCategory(controller: CategoryCollectionViewController, category: Category)
+    func didSelectCategory(_ controller: CategoryCollectionViewController, category: Category)
 }
 
 class CategoryCollectionViewController: UICollectionViewController, NSFetchedResultsControllerDelegate {
@@ -20,8 +20,8 @@ class CategoryCollectionViewController: UICollectionViewController, NSFetchedRes
     var delegate: CategoryCollectionViewControllerDelegate!
     var context: NSManagedObjectContext!
 
-    lazy var fetchedResultsController: NSFetchedResultsController = {
-        let fetchRequest = NSFetchRequest(entityName: "Category")
+    lazy var fetchedResultsController: NSFetchedResultsController<Category> = {
+        let fetchRequest: NSFetchRequest<Category> = NSFetchRequest(entityName: "Category")
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
 
@@ -39,11 +39,11 @@ class CategoryCollectionViewController: UICollectionViewController, NSFetchedRes
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Select Category"
-        collectionView!.registerNib(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
+        collectionView!.register(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
         collectionView!.contentInset = UIEdgeInsetsMake(10, 10, 10, 10)
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         do {
@@ -55,14 +55,14 @@ class CategoryCollectionViewController: UICollectionViewController, NSFetchedRes
 
     // MARK: - UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         if let sections = fetchedResultsController.sections {
             return sections.count
         }
         return 0
     }
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let sections = fetchedResultsController.sections {
             let currentSection = sections[section]
             return currentSection.numberOfObjects
@@ -70,9 +70,9 @@ class CategoryCollectionViewController: UICollectionViewController, NSFetchedRes
         return 0
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoryCell", forIndexPath: indexPath) as! CategoryCell
-        let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Category
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
+        let category = fetchedResultsController.object(at: indexPath)
 
         cell.iconLabel!.font = UIFont.fontAwesomeOfSize(36)
         cell.iconLabel!.text = category.icon
@@ -83,8 +83,8 @@ class CategoryCollectionViewController: UICollectionViewController, NSFetchedRes
         return cell
     }
 
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let category = fetchedResultsController.objectAtIndexPath(indexPath) as! Category
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let category = fetchedResultsController.object(at: indexPath)
         delegate?.didSelectCategory(self, category: category)
     }
 }

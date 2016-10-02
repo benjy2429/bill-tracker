@@ -1,8 +1,8 @@
 import UIKit
 
 protocol PopupPickerDelegate {
-    func didChooseOption(controller: PopupPicker, selection: Int)
-    func didCancelPopupPicker(controller: PopupPicker)
+    func didChooseOption(_ controller: PopupPicker, selection: Int)
+    func didCancelPopupPicker(_ controller: PopupPicker)
 }
 
 class PopupPicker: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
@@ -25,9 +25,9 @@ class PopupPicker: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
     }
 
     func loadNib() -> UIView {
-        let bundle = NSBundle(forClass: self.dynamicType)
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: "PopupPicker", bundle: bundle)
-        let view = nib.instantiateWithOwner(self, options: nil).first as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil).first as! UIView
         return view
     }
 
@@ -41,7 +41,7 @@ class PopupPicker: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
 
     func setShadow() {
         view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSizeMake(0, 0)
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
         view.layer.shadowRadius = 15
         view.layer.shadowOpacity = 0.2
     }
@@ -51,26 +51,26 @@ class PopupPicker: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
 
         view.frame.origin.y += view.frame.height
 
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.view.frame.origin.y -= self.view.frame.height
         })
     }
 
-    func hide(callback: () -> ()) {
-        UIView.animateWithDuration(0.2, animations: {
+    func hide(_ callback: @escaping () -> ()) {
+        UIView.animate(withDuration: 0.2, animations: {
             self.view.frame.origin.y += self.view.frame.height
-        }) { Void in
+        }, completion: { Void in
             callback()
-        }
+        })
     }
 
-    @IBAction func finish(sender: AnyObject) {
+    @IBAction func finish(_ sender: AnyObject) {
         hide({
             self.delegate.didChooseOption(self, selection: self.selectedOption)
         })
     }
 
-    @IBAction func clear(sender: AnyObject) {
+    @IBAction func clear(_ sender: AnyObject) {
         hide({
             self.delegate.didCancelPopupPicker(self)
         })
@@ -78,19 +78,19 @@ class PopupPicker: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
 
     // MARK: - UIPickerViewDataSource
 
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
 
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return options.count
     }
 
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return options[row]
     }
 
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedOption = row
     }
 }

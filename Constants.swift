@@ -6,5 +6,5 @@ struct Constants {
         green: 0.71,
         blue: 0.18,
         alpha: 1)
-    static let TINT_COLOUR = UIColor.blackColor()
+    static let TINT_COLOUR = UIColor.black
 }
