@@ -100,6 +100,11 @@ class Bill: NSManagedObject {
         }
     }
 
+    func dueToday() -> Bool {
+        let calendar = Calendar.current
+        return calendar.isDateInToday(nextDueDate)
+    }
+
     func validate() {
         // TODO: Migrate from viewcontrollers
     }

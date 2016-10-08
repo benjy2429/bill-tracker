@@ -129,6 +129,7 @@ class OverviewViewController: UIViewController, BillDetailViewControllerDelegate
         cell.nameLabel!.text = bill.name
         cell.amountLabel!.text = bill.amountHumanized
         cell.dateLabel!.text = bill.nextDueDateHumanized
+        cell.dateLabel.textColor = bill.dueToday() ? UIColor.red : UIColor.darkGray
 
         cell.categoryIcon.setCategory(bill.category)
     }
