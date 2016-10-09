@@ -29,9 +29,6 @@ class CategoryIcon: UIView {
     func xibSetup() {
         contentView = loadViewFromNib()
 
-        contentView!.frame = bounds
-        contentView!.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
-
         iconLabel.font = UIFont.fontAwesomeOfSize(18)
         backgroundView.layer.cornerRadius = (contentView?.frame.width)! / 2
         setCategory(nil)
