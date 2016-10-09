@@ -6,7 +6,11 @@ protocol BillDetailViewControllerDelegate {
     func didSaveBill(_ controller: BillDetailViewController, bill: Bill)
 }
 
-class BillDetailViewController: UITableViewController, UITextFieldDelegate, PopupDatePickerDelegate, PopupPickerDelegate, CategoryCollectionViewControllerDelegate {
+class BillDetailViewController: UITableViewController,
+                                UITextFieldDelegate,
+                                PopupDatePickerDelegate,
+                                PopupPickerDelegate,
+                                CategoryCollectionViewControllerDelegate {
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
@@ -32,6 +36,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
         if (editingBill == nil) {
             title = "Add Bill"
+            setAmountField(amount: 0)
             dueDate = Date()
             categoryLabel.text = ""
             nameField.becomeFirstResponder()
@@ -39,7 +44,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         } else {
             title = "Edit Bill"
             nameField.text = editingBill.name
-            amountField.text = String(describing: editingBill.amount!)
+            setAmountField(amount: Double(editingBill.amount!))
             payeeField.text = editingBill.payee
             dueDate = editingBill.dueDate
             category = editingBill.category
@@ -58,6 +63,17 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         return formatter.string(from: date)
     }
 
+    func unformatAmount(amount: String) -> Double {
+        let unformattedString = amount.components(separatedBy: NSCharacterSet.decimalDigits.inverted).joined(separator: "")
+        return Double(unformattedString)! / 100
+    }
+
+    func setAmountField(amount: Double) {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        amountField.text = formatter.string(from: NSNumber(value: amount))!
+    }
+
     // MARK: - Validation
 
     func validate() -> (isValid: Bool, message: String?) {
@@ -66,9 +82,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
             message = "Please enter a name"
         } else if amountField.text?.characters.count == 0 {
             message = "Please enter an amount"
-        } else if Double(amountField.text!) == nil {
-            message = "Invalid amount"
-        } else if Double(amountField.text!)! < 0.0 {
+        } else if unformatAmount(amount: amountField.text!) < 0.0 {
             message = "Amount must be greater than zero"
         } else if category == nil {
             message = "Please select a category"
@@ -100,7 +114,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         }
 
         let name = nameField.text!
-        let amount = NSDecimalNumber(string: amountField.text!)
+        let amount = NSDecimalNumber(value: unformatAmount(amount: amountField.text!))
         let payee = payeeField.text!
 
         if (editingBill == nil) {
@@ -120,7 +134,13 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     // MARK: - UITextFieldDelegate
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // TODO: Reformat amount field to currency format
+        let newString = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+
+        if (textField == amountField) {
+            setAmountField(amount: unformatAmount(amount: newString!))
+            return false
+        }
+
         return true
     }
 
