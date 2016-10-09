@@ -6,22 +6,32 @@ protocol PopupPickerDelegate {
 }
 
 class PopupPicker: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
-
-    @IBOutlet var view: UIView!
     @IBOutlet weak var picker: UIPickerView!
+
+    var nibView: UIView?
 
     var delegate: PopupPickerDelegate! = nil
     var options: [String]! = [String]()
     var selectedOption: Int! = 0
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: UIScreen.main.bounds)
         setup()
     }
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         setup()
+    }
+
+    func setup() {
+        nibView = loadNib()
+
+        let currentHeight = nibView?.bounds.height
+        nibView!.frame = CGRect(x: 0, y: bounds.maxY - currentHeight!, width: bounds.width, height: currentHeight!)
+
+        addSubview(nibView!)
+        picker.delegate = self
     }
 
     func loadNib() -> UIView {
@@ -31,34 +41,23 @@ class PopupPicker: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
         return view
     }
 
-    func setup() {
-        let view = loadNib()
-        view.frame = bounds
-        setShadow()
-        addSubview(self.view)
-        picker.delegate = self
-    }
-
-    func setShadow() {
-        view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSize(width: 0, height: 0)
-        view.layer.shadowRadius = 15
-        view.layer.shadowOpacity = 0.2
-    }
-
-    func show() {
+    func showInView(view: UIView) {
+        view.addSubview(self)
         picker.selectRow(selectedOption, inComponent: 0, animated: false)
 
-        view.frame.origin.y += view.frame.height
+        self.backgroundColor = UIColor(white: 0, alpha: 0)
+        nibView?.frame.origin.y += (nibView?.frame.height)!
 
         UIView.animate(withDuration: 0.2, animations: {
-            self.view.frame.origin.y -= self.view.frame.height
+            self.backgroundColor = UIColor(white: 0, alpha: 0.5)
+            self.nibView?.frame.origin.y -= (self.nibView?.frame.height)!
         })
     }
 
     func hide(_ callback: @escaping () -> ()) {
         UIView.animate(withDuration: 0.2, animations: {
-            self.view.frame.origin.y += self.view.frame.height
+            self.backgroundColor = UIColor(white: 0, alpha: 0)
+            self.nibView?.frame.origin.y += (self.nibView?.frame.height)!
         }, completion: { Void in
             callback()
         })

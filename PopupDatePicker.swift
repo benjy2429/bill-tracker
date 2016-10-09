@@ -6,21 +6,30 @@ protocol PopupDatePickerDelegate {
 }
 
 class PopupDatePicker: UIView {
-
-    @IBOutlet var view: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
+
+    var nibView: UIView?
 
     var delegate: PopupDatePickerDelegate! = nil
     var date: Date = Date()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: UIScreen.main.bounds)
         setup()
     }
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         setup()
+    }
+
+    func setup() {
+        nibView = loadNib()
+
+        let currentHeight = nibView?.bounds.height
+        nibView!.frame = CGRect(x: 0, y: bounds.maxY - currentHeight!, width: bounds.width, height: currentHeight!)
+
+        addSubview(nibView!)
     }
 
     func loadNib() -> UIView {
@@ -30,33 +39,23 @@ class PopupDatePicker: UIView {
         return view
     }
 
-    func setup() {
-        let view = loadNib()
-        view.frame = bounds
-        setShadow()
-        addSubview(self.view)
-    }
-
-    func setShadow() {
-        view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSize(width: 0, height: 0)
-        view.layer.shadowRadius = 15
-        view.layer.shadowOpacity = 0.2
-    }
-
-    func show() {
+    func showInView(view: UIView) {
+        view.addSubview(self)
         datePicker.date = date
 
-        view.frame.origin.y += view.frame.height
+        self.backgroundColor = UIColor(white: 0, alpha: 0)
+        nibView?.frame.origin.y += (nibView?.frame.height)!
 
         UIView.animate(withDuration: 0.2, animations: {
-            self.view.frame.origin.y -= self.view.frame.height
+            self.backgroundColor = UIColor(white: 0, alpha: 0.5)
+            self.nibView?.frame.origin.y -= (self.nibView?.frame.height)!
         })
     }
 
     func hide(_ callback: @escaping () -> ()) {
         UIView.animate(withDuration: 0.2, animations: {
-            self.view.frame.origin.y += self.view.frame.height
+            self.backgroundColor = UIColor(white: 0, alpha: 0)
+            self.nibView?.frame.origin.y += (self.nibView?.frame.height)!
         }, completion: { Void in
             callback()
         })
