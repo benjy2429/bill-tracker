@@ -34,6 +34,7 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
             title = "Add Bill"
             dueDate = Date()
             categoryLabel.text = ""
+            nameField.becomeFirstResponder()
 
         } else {
             title = "Edit Bill"
@@ -49,11 +50,6 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
 
         dueDateLabel.text = formatDate(dueDate)
         repeatLabel.text = RepeatInterval.getByID(repeatInterval)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        nameField.becomeFirstResponder()
     }
 
     func formatDate(_ date: Date) -> String {
