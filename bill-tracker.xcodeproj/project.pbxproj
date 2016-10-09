@@ -19,6 +19,7 @@
 		9E44D6F61D8598AF00CCE94C /* PopupDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E44D6F51D8598AF00CCE94C /* PopupDatePicker.xib */; };
 		9E44D6F81D85996E00CCE94C /* PopupDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44D6F71D85996E00CCE94C /* PopupDatePicker.swift */; };
 		9E5629AE1D833411008CB706 /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5629AD1D833411008CB706 /* BillDetailViewController.swift */; };
+		9E77F2081DAA848E0089782B /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E77F2071DAA848E0089782B /* PopupView.swift */; };
 		9E8308FF1D81DF96004C6EC5 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8308FD1D81DF96004C6EC5 /* Bill.swift */; };
 		9E8309071D81F5EC004C6EC5 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8309041D81F5EC004C6EC5 /* Category.swift */; };
 		9E8AD17D1D8447F900DEA3D4 /* OverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8AD17C1D8447F900DEA3D4 /* OverviewCell.swift */; };
@@ -72,6 +73,7 @@
 		9E44D6F51D8598AF00CCE94C /* PopupDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopupDatePicker.xib; sourceTree = "<group>"; };
 		9E44D6F71D85996E00CCE94C /* PopupDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopupDatePicker.swift; path = ../PopupDatePicker.swift; sourceTree = "<group>"; };
 		9E5629AD1D833411008CB706 /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
+		9E77F2071DAA848E0089782B /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopupView.swift; path = "bill-tracker/PopupView.swift"; sourceTree = "<group>"; };
 		9E8308FD1D81DF96004C6EC5 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		9E8309041D81F5EC004C6EC5 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		9E8AD17C1D8447F900DEA3D4 /* OverviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewCell.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		9EC019521D819D0D00415333 = {
 			isa = PBXGroup;
 			children = (
+				9E77F2071DAA848E0089782B /* PopupView.swift */,
 				9EC0195D1D819D0D00415333 /* bill-tracker */,
 				9EC019751D819D0D00415333 /* bill-trackerTests */,
 				9EC019801D819D0D00415333 /* bill-trackerUITests */,
@@ -526,6 +529,7 @@
 				9EF733031D88905A00A93A37 /* seed.swift in Sources */,
 				9EDDA8451D8ED56A001DE21F /* PopupPicker.swift in Sources */,
 				9EC0195F1D819D0D00415333 /* AppDelegate.swift in Sources */,
+				9E77F2081DAA848E0089782B /* PopupView.swift in Sources */,
 				9E8309071D81F5EC004C6EC5 /* Category.swift in Sources */,
 				9E5629AE1D833411008CB706 /* BillDetailViewController.swift in Sources */,
 				9E8AD17D1D8447F900DEA3D4 /* OverviewCell.swift in Sources */,

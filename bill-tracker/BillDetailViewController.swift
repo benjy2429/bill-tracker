@@ -20,9 +20,6 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     var context: NSManagedObjectContext!
     var editingBill: Bill!
 
-    var popupDatePicker: PopupDatePicker!
-    var popupRepeatPicker: PopupPicker!
-
     var dueDate: Date!
     var repeatInterval: Int = 0
     var category: Category!
@@ -137,27 +134,23 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
         tableView.deselectRow(at: indexPath, animated: true)
         view.endEditing(true)
 
-        if indexPath.row == 3 && popupDatePicker == nil {
-            // TODO: Extract nib heights into PopupDatePicker.class
-            popupDatePicker = PopupDatePicker()
+        if indexPath.row == 3 {
+            let popupDatePicker = PopupDatePicker()
             popupDatePicker.delegate = self
             if (editingBill != nil) {
-                popupDatePicker.date = editingBill.dueDate!
+                popupDatePicker.date = dueDate
             }
-//            navigationController!.view.addSubview(popupDatePicker)
             popupDatePicker.showInView(view: navigationController!.view)
             return
         }
 
-        if indexPath.row == 4 && popupRepeatPicker == nil {
-            // TODO: Extract nib heights into PopupDatePicker.class
-            popupRepeatPicker = PopupPicker()
+        if indexPath.row == 4 {
+            let popupRepeatPicker = PopupPicker()
             popupRepeatPicker.delegate = self
             popupRepeatPicker.options = RepeatInterval.humanized()
             if (editingBill != nil) {
-                popupRepeatPicker.selectedOption = editingBill.repeatInterval as! Int
+                popupRepeatPicker.selectedOption = repeatInterval
             }
-            navigationController!.view.addSubview(popupRepeatPicker)
             popupRepeatPicker.showInView(view: navigationController!.view)
             return
         }
@@ -178,31 +171,15 @@ class BillDetailViewController: UITableViewController, UITextFieldDelegate, Popu
     // MARK: - PopupDatePickerDelegate
 
     func didFinish(_ controller: PopupDatePicker, date: Date) {
-        popupDatePicker.removeFromSuperview()
-        popupDatePicker = nil
-
         dueDate = date
         dueDateLabel.text = formatDate(date)
-    }
-
-    func didCancel(_ controller: PopupDatePicker) {
-        popupDatePicker.removeFromSuperview()
-        popupDatePicker = nil
     }
 
     // MARK: - PopupPickerDelegate
 
     func didChooseOption(_ controller: PopupPicker, selection: Int) {
-        popupRepeatPicker.removeFromSuperview()
-        popupRepeatPicker = nil
-
         repeatInterval = selection
         repeatLabel.text = RepeatInterval.getByID(selection)
-    }
-
-    func didCancelPopupPicker(_ controller: PopupPicker) {
-        popupRepeatPicker.removeFromSuperview()
-        popupRepeatPicker = nil
     }
 
     // MARK: - Navigation

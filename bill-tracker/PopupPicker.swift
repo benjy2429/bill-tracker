@@ -2,66 +2,29 @@ import UIKit
 
 protocol PopupPickerDelegate {
     func didChooseOption(_ controller: PopupPicker, selection: Int)
-    func didCancelPopupPicker(_ controller: PopupPicker)
 }
 
-class PopupPicker: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
+class PopupPicker: PopupView, UIPickerViewDataSource, UIPickerViewDelegate {
     @IBOutlet weak var picker: UIPickerView!
-
-    var nibView: UIView?
 
     var delegate: PopupPickerDelegate! = nil
     var options: [String]! = [String]()
     var selectedOption: Int! = 0
 
     init() {
-        super.init(frame: UIScreen.main.bounds)
-        setup()
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-        setup()
-    }
-
-    func setup() {
-        nibView = loadNib()
-
-        let currentHeight = nibView?.bounds.height
-        nibView!.frame = CGRect(x: 0, y: bounds.maxY - currentHeight!, width: bounds.width, height: currentHeight!)
-
-        addSubview(nibView!)
+        super.init(nib: String(describing: PopupPicker.self))
         picker.delegate = self
     }
 
-    func loadNib() -> UIView {
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: "PopupPicker", bundle: bundle)
-        let view = nib.instantiate(withOwner: self, options: nil).first as! UIView
-        return view
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
-    func showInView(view: UIView) {
-        view.addSubview(self)
+    override func showInView(view: UIView) {
+        super.showInView(view: view)
         picker.selectRow(selectedOption, inComponent: 0, animated: false)
-
-        self.backgroundColor = UIColor(white: 0, alpha: 0)
-        nibView?.frame.origin.y += (nibView?.frame.height)!
-
-        UIView.animate(withDuration: 0.2, animations: {
-            self.backgroundColor = UIColor(white: 0, alpha: 0.5)
-            self.nibView?.frame.origin.y -= (self.nibView?.frame.height)!
-        })
     }
 
-    func hide(_ callback: @escaping () -> ()) {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.backgroundColor = UIColor(white: 0, alpha: 0)
-            self.nibView?.frame.origin.y += (self.nibView?.frame.height)!
-        }, completion: { Void in
-            callback()
-        })
-    }
 
     @IBAction func finish(_ sender: AnyObject) {
         hide({
@@ -70,9 +33,7 @@ class PopupPicker: UIView, UIPickerViewDataSource, UIPickerViewDelegate {
     }
 
     @IBAction func clear(_ sender: AnyObject) {
-        hide({
-            self.delegate.didCancelPopupPicker(self)
-        })
+        hide({})
     }
 
     // MARK: - UIPickerViewDataSource
